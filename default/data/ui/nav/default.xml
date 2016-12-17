@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <nav search_view="search" color="#6699FF">
   <view name="search" default='true' />
   <collection label="Rijksmuseum">
@@ -6,3 +7,12 @@
     <!-- Use the collection tag to create a list of items -->
     </collection>
 </nav>
+=======
+<nav search_view="search" color="#65A637">
+  <view name="search" default='true' />
+  <view name="datasets" />
+  <view name="reports" />
+  <view name="alerts" />
+  <view name="dashboards" />
+</nav>
+>>>>>>> 00d0a301a5abed9f3192367084292828bf03e069

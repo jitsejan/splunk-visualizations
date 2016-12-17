@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 [app/ui]
 version = 6.5.0
 modtime = 1481634126.627901400
@@ -5,3 +6,12 @@ modtime = 1481634126.627901400
 [app/launcher]
 version = 6.5.0
 modtime = 1481634126.645906700
+=======
+[app/ui]
+version = 6.5.1
+modtime = 1481936969.312688000
+
+[app/launcher]
+version = 6.5.1
+modtime = 1481936969.314106000
+>>>>>>> 00d0a301a5abed9f3192367084292828bf03e069
