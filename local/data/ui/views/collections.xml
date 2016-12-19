@@ -1,0 +1,220 @@
+<form hideSplunkBar="true" hideAppBar="false" hideEdit="false" hideFooter="true">
+  <init>
+    <set token="form.show_top">true</set>
+    <unset token="form.year_panel"></unset>
+  </init>
+  <row>
+    <panel depends="$show_top$">
+      <input type="link" token="reset" searchWhenChanged="true">
+      <label></label>
+      <choice value="reset">Collections</choice>
+      <!--<choice value="show_all">Show all graphs</choice>-->
+      <default></default>
+        <change>
+          <condition value="reset">
+            <set token="form.show_top">true</set>
+            <unset token="form.creationyear">false</unset>
+            <!--<unset token="creationyear">true</unset>-->
+            <unset token="form.painter">true</unset>
+            <unset token="form.reset">true</unset>
+            <!--<unset token="painter">true</unset>-->
+          </condition>
+        </change>
+      </input>
+    </panel>
+  </row>
+  
+  <label>Collections</label>
+  <description>Show the painters that have works in the Rijksmuseum</description>
+  <fieldset autorun="true" submitButton="false">
+    <input type="dropdown" token="painter" searchWhenChanged="true">
+      <label>Painter</label>
+      <showClearButton>true</showClearButton>
+      <search>
+        <query>index=jitsejan source="*rijksmuseum_collection_*.csv" principalOrFirstMaker!=anonymous principalOrFirstMaker="*" | head 100
+| dedup principalOrFirstMaker 
+| sort principalOrFirstMaker</query>
+        <earliest>0</earliest>
+      </search>
+      <fieldForLabel>Painter</fieldForLabel>
+      <fieldForValue>principalOrFirstMaker</fieldForValue>
+      <change>
+        <condition value="*"></condition>
+        <condition>
+          <unset token="form.painter"></unset>
+        </condition>
+      </change>
+    </input>
+    <input type="dropdown" token="creationyear" searchWhenChanged="true">
+      <label>Creation year</label>
+      <showClearButton>false</showClearButton>
+      <search>
+        <query>index=jitsejan source="*rijksmuseum_collection_*.csv" principalOrFirstMaker!=anonymous 
+| eval yearField=mvindex(split(longTitle,","),-1) 
+| rex field=yearField "(?P&lt;creationYear&gt;\d{4})"
+| dedup creationYear
+| table creationYear
+| sort creationYear</query>
+        <earliest>0</earliest>
+      </search>
+      <fieldForLabel>Creation year</fieldForLabel>
+      <fieldForValue>creationYear</fieldForValue>
+    </input>
+    
+
+  </fieldset>
+  <row>
+    <panel depends="$form.show_top$">
+      <title>Top makers</title>
+      <chart>
+        <search>
+          <query>index=jitsejan source="*rijksmuseum_collection_*.csv" principalOrFirstMaker!=anonymous | head 100
+| eval yearField=mvindex(split(longTitle,","),-1)
+| rex field=yearField "(?P&lt;creationYear&gt;\d{4})"
+| top principalOrFirstMaker 
+| fields principalOrFirstMaker count
+| rename principalOrFirstMaker as Artist, count as Amount</query>
+          <earliest>$earliest$</earliest>
+          <latest>$latest$</latest>
+          <sampleRatio>1</sampleRatio>
+        </search>
+        <option name="charting.axisLabelsX.majorLabelStyle.overflowMode">ellipsisNone</option>
+        <option name="charting.axisLabelsX.majorLabelStyle.rotation">0</option>
+        <option name="charting.axisTitleX.visibility">visible</option>
+        <option name="charting.axisTitleY.visibility">visible</option>
+        <option name="charting.axisTitleY2.visibility">visible</option>
+        <option name="charting.axisX.scale">linear</option>
+        <option name="charting.axisY.scale">linear</option>
+        <option name="charting.axisY2.enabled">0</option>
+        <option name="charting.axisY2.scale">inherit</option>
+        <option name="charting.chart">bar</option>
+        <option name="charting.chart.bubbleMaximumSize">50</option>
+        <option name="charting.chart.bubbleMinimumSize">10</option>
+        <option name="charting.chart.bubbleSizeBy">area</option>
+        <option name="charting.chart.nullValueMode">gaps</option>
+        <option name="charting.chart.showDataLabels">none</option>
+        <option name="charting.chart.sliceCollapsingThreshold">0.01</option>
+        <option name="charting.chart.stackMode">default</option>
+        <option name="charting.chart.style">shiny</option>
+        <option name="charting.drilldown">all</option>
+        <option name="charting.layout.splitSeries">0</option>
+        <option name="charting.layout.splitSeries.allowIndependentYRanges">0</option>
+        <option name="charting.legend.labelStyle.overflowMode">ellipsisMiddle</option>
+        <option name="charting.legend.placement">right</option>
+        <option name="charting.fieldColors">{"Amount":0x6699FF}</option>
+        <drilldown>
+          <link target="_self">/app/jitsejan/artists?form.painter=$row.Artist$</link>--&gt;</drilldown>
+      </chart>
+    </panel>
+    <panel depends="$form.show_top$">
+      <title>Creation years</title>
+      <chart>
+        <search>
+          <query>index=jitsejan source="*rijksmuseum_collection_*.csv" principalOrFirstMaker!=anonymous | head 100
+| eval yearField=mvindex(split(longTitle,","),-1) 
+| rex field=yearField "(?P&lt;creationYear&gt;\d{4})" 
+| dedup longTitle 
+| rename creationYear as "Creation year", longTitle as Title, productionPlaces as Locations 
+| top "Creation year" limit=100 
+| sort by "Creation year"
+| rename count as Amount</query>
+          <sampleRatio>1</sampleRatio>
+        </search>
+        <option name="charting.axisLabelsX.majorLabelStyle.overflowMode">ellipsisNone</option>
+        <option name="charting.axisLabelsX.majorLabelStyle.rotation">0</option>
+        <option name="charting.axisTitleX.visibility">visible</option>
+        <option name="charting.axisTitleY.visibility">visible</option>
+        <option name="charting.axisTitleY2.visibility">visible</option>
+        <option name="charting.axisX.scale">linear</option>
+        <option name="charting.axisY.scale">linear</option>
+        <option name="charting.axisY2.enabled">0</option>
+        <option name="charting.axisY2.scale">inherit</option>
+        <option name="charting.chart">column</option>
+        <option name="charting.chart.bubbleMaximumSize">50</option>
+        <option name="charting.chart.bubbleMinimumSize">10</option>
+        <option name="charting.chart.bubbleSizeBy">area</option>
+        <option name="charting.chart.nullValueMode">gaps</option>
+        <option name="charting.chart.showDataLabels">none</option>
+        <option name="charting.chart.sliceCollapsingThreshold">0.01</option>
+        <option name="charting.chart.stackMode">default</option>
+        <option name="charting.chart.style">shiny</option>
+        <option name="charting.drilldown">all</option>
+        <option name="charting.layout.splitSeries">0</option>
+        <option name="charting.layout.splitSeries.allowIndependentYRanges">0</option>
+        <option name="charting.legend.labelStyle.overflowMode">ellipsisMiddle</option>
+        <option name="charting.legend.placement">right</option>
+        <option name="charting.fieldColors">{"Amount":0x6699FF}</option>
+        <drilldown>
+          <!--<set token="creationyear">$row.Creation year$</set>-->
+          <set token="form.creationyear">$row.Creation year$</set>
+          <!--  <link target="_blank">/app/jitsejan/painter?form.painter=$row.principalOrFirstMaker$</link>-->
+        </drilldown>
+      </chart>
+    </panel>
+  </row>
+  <row>
+    <panel depends="$form.creationyear$">
+      <input type="link" token="reset" searchWhenChanged="true">
+      <label></label>
+      <choice value="reset">Collections</choice>
+      <!--<choice value="show_all">Show all graphs</choice>-->
+      <default></default>
+        <change>
+          <condition value="reset">
+            <set token="form.show_top">true</set>
+            <unset token="form.creationyear">false</unset>
+            <!--<unset token="creationyear">true</unset>-->
+            <unset token="form.painter">true</unset>
+            <unset token="form.reset">true</unset>
+            <!--<unset token="painter">true</unset>-->
+          </condition>
+        </change>
+      </input>     
+     $creationyear$
+   </panel>
+  </row>
+  <row>
+    <panel depends="$form.creationyear$">
+      <title>Titles per year</title>
+      <table>
+        <search>
+          <query>index=jitsejan source="*rijksmuseum_collection_*.csv" principalOrFirstMaker!=anonymous | head 100
+          | eval yearField=mvindex(split(longTitle,","),-1) 
+          | rex field=yearField "(?P&lt;creationYear&gt;\d{4})"   
+          | dedup longTitle 
+          | rename principalOrFirstMaker as Artist, creationYear as "Creation year", title as Title, productionPlaces as Locations
+          | search "Creation year"= $creationyear$ 
+          | table Artist Title</query>
+          <earliest>0</earliest>
+          <sampleRatio>1</sampleRatio>
+          <progress>
+            <condition match="'job.resultCount' &gt; 0">
+              <set token="form.year_panel">true</set>
+              <unset token="form.titles_panel"></unset>
+              <unset token="form.show_top"></unset>
+            </condition>
+            <condition>
+              <unset token="form.year_panel"></unset>
+              <set token="form.show_top">true</set>
+            </condition>
+          </progress>
+        </search>
+        <option name="count">20</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">cell</option>
+        <option name="percentagesRow">false</option>
+        <option name="rowNumbers">false</option>
+        <option name="totalsRow">false</option>
+        <option name="wrap">true</option>
+        <drilldown>
+          <condition field="Artist">
+            <link target="_self">/app/jitsejan/artists?form.painter=$row.Artist$</link>
+          </condition>
+          <condition field="Title">
+            <link target="_self">/app/jitsejan/item?form.title=$row.Title$</link>
+          </condition>
+        </drilldown>
+      </table>
+    </panel>
+  </row>
+</form>

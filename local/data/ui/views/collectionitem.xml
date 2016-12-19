@@ -1,0 +1,92 @@
+<dashboard>
+  <init>
+    <!--<set token="form.title">form.title$</set>-->
+  </init>
+  <label>Painting</label>
+  <fieldset autorun="true" submitButton="false">
+    <input type="dropdown" token="title" searchWhenChanged="true">
+      <label>Title</label>
+      <showClearButton>true</showClearButton>
+      <search>
+        <query>index=jitsejan source="*rijksmuseum_collection_*.csv" | search hasImage=true | head 100
+| dedup longTitle
+| table longTitle
+| sort longTitle</query>
+        <earliest>0</earliest>
+      </search>
+      <fieldForLabel>Title</fieldForLabel>
+      <fieldForValue>longTitle</fieldForValue>
+    </input>
+  </fieldset>
+   <row>
+    <panel>
+      Collection
+      <html>
+           <a class="breadcrumb" href="collections">Collections</a>
+       </html>
+      <input type="link" token="reset" searchWhenChanged="true">
+      <label></label>
+      <choice value="reset">items </choice>
+      <!--<choice value="show_all">Show all graphs</choice>-->
+      <default></default>
+        <change>
+          <condition value="reset">
+            <set token="form.show_top">true</set>
+            <unset token="form.creationyear">false</unset>
+            <!--<unset token="creationyear">true</unset>-->
+            <unset token="form.painter">true</unset>
+            <unset token="form.reset">true</unset>
+            <!--<unset token="painter">true</unset>-->
+          </condition>
+        </change>
+      </input>
+      $form.title
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <event>
+        <search>
+          <query>index=jitsejan source="*rijksmuseum_collection_*.csv" 
+          | search longTitle="$form.title$"
+          | eval yearField=mvindex(split(longTitle,","),-1)            
+          | rex field=yearField "(?P&lt;creationYear&gt;\d{4})"             
+          | rename principalOrFirstMaker as Artist, creationYear as "Creation year", title as Title, productionPlaces as Locations
+          | dedup Title
+          | table Title</query>
+          <earliest>1481714197.000</earliest>
+          <sampleRatio>1</sampleRatio>
+           <finalized>
+            <set token="Title">$result.Title$</set>
+            <set token="Image">$result.headerImage['web']$</set>
+          </finalized>
+        </search>
+        <option name="count">20</option>
+        <option name="list.drilldown">full</option>
+        <option name="list.wrap">1</option>
+        <option name="maxLines">5</option>
+        <option name="raw.drilldown">full</option>
+        <option name="rowNumbers">0</option>
+        <option name="table.drilldown">all</option>
+        <option name="table.sortDirection">asc</option>
+        <option name="table.wrap">1</option>
+        <option name="type">list</option>
+       
+      </event>
+    </panel>
+  </row>
+<row>
+  <panel>
+     <html>
+        <p style="text-align:center; font-size:400%; color: #000000">
+           <div style="color: #73a550">
+           $Title$
+           $Image$
+           </div>
+        </p>
+     </html>
+  </panel>
+</row>
+      
+  
+</dashboard>

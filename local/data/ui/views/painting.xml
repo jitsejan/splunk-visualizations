@@ -1,0 +1,46 @@
+<dashboard>
+  <label>painting</label>
+  <row>
+    <panel>
+      <event>
+        <search>
+          <query>index=jitsejan source="*rijksmuseum_collection_*.csv" 
+          | search title="Enquêteformulier ingevuld door Anthony Andres de Meijier"
+          | eval yearField=mvindex(split(longTitle,","),-1)            
+          | rex field=yearField "(?P&lt;creationYear&gt;\d{4})"             
+          | rename principalOrFirstMaker as Artist, creationYear as "Creation year", title as Title, productionPlaces as Locations
+          | table Title</query>
+          <earliest>1481714197.000</earliest>
+          <sampleRatio>1</sampleRatio>
+           <finalized>
+          <set token="Title">$result.Title$</set>
+        </finalized>
+        </search>
+        <option name="count">20</option>
+        <option name="list.drilldown">full</option>
+        <option name="list.wrap">1</option>
+        <option name="maxLines">5</option>
+        <option name="raw.drilldown">full</option>
+        <option name="rowNumbers">0</option>
+        <option name="table.drilldown">all</option>
+        <option name="table.sortDirection">asc</option>
+        <option name="table.wrap">1</option>
+        <option name="type">list</option>
+       
+      </event>
+    </panel>
+  </row>
+<row>
+  <panel>
+     <html>
+        <p style="text-align:center; font-size:400%; color: #000000">
+           <div style="color: #73a550">
+           $Title$
+           </div>
+        </p>
+     </html>
+  </panel>
+</row>
+      
+  
+</dashboard>

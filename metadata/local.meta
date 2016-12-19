@@ -6,12 +6,26 @@ modtime = 1481634126.627901400
 [app/launcher]
 version = 6.5.0
 modtime = 1481634126.645906700
-=======
-[app/ui]
-version = 6.5.1
-modtime = 1481936969.312688000
+ = ======
 
-[app/launcher]
-version = 6.5.1
-modtime = 1481936969.314106000
+[views/collections]
+access = read : [ * ]
+export = none
+owner = admin
+version = 6.5.0
+modtime = 1482145024.205714300
+
+[views/collectionitem]
+access = read : [ * ]
+export = none
+owner = admin
+version = 6.5.0
+modtime = 1482145199.461021000
+
+[views/painting]
+access = read : [ * ]
+export = none
+owner = admin
+version = 6.5.0
+modtime = 1482145210.659185700
 >>>>>>> 00d0a301a5abed9f3192367084292828bf03e069
