@@ -4,4 +4,8 @@
     <view name="collections" />
     <view name="artists" />
   </collection>
+  <collection label="The Art Story">
+    <view name="art_story_artists" />
+    <view name="art_story_movements" />
+  </collection>
 </nav>

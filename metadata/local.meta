@@ -28,4 +28,18 @@ export = none
 owner = admin
 version = 6.5.0
 modtime = 1482145210.659185700
+
+[views/art_story_artists]
+access = read : [ * ], write : [ * ]
+export = none
+owner = admin
+version = 6.5.0
+modtime = 1482421232.138226600
+
+[views/art_story_movements]
+access = read : [ * ], write : [ * ]
+export = none
+owner = admin
+version = 6.5.0
+modtime = 1482480392.566400600
 >>>>>>> 00d0a301a5abed9f3192367084292828bf03e069
