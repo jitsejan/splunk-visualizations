@@ -1,0 +1,250 @@
+	demonym	alpha_2	alpha_3	numeric
+Afghanistan	Afghan	AF	AFG	004
+Albania	Albanian	AL	ALB	008
+Algeria	Algerian	DZ	DZA	012
+American Samoa	Samoan	AS	ASM	016
+Andorra	Andorran	AD	AND	020
+Angola	Angolan	AO	AGO	024
+Anguilla	Anguillan	AI	AIA	660
+Antarctica		AQ	ATA	010
+Antigua and Barbuda	Antiguan, Barbudan	AG	ATG	028
+Argentina	Argentine	AR	ARG	032
+Armenia	Armenian	AM	ARM	051
+Aruba	Aruban; Dutch	AW	ABW	533
+Australia	Australian	AU	AUS	036
+Austria	Austrian	AT	AUT	040
+Azerbaijan	Azerbaijani	AZ	AZE	031
+Bahamas		BS	BHS	044
+Bahrain	Bahraini	BH	BHR	048
+Bangladesh	Bangladeshi	BD	BGD	050
+Barbados	Barbadian or Bajan (colloquial)	BB	BRB	052
+Belarus	Belarusian	BY	BLR	112
+Belgium	Belgian	BE	BEL	056
+Belize	Belizean	BZ	BLZ	084
+Benin	Beninese	BJ	BEN	204
+Bermuda	Bermudian	BM	BMU	060
+Bhutan	Bhutanese	BT	BTN	064
+Bolivia, Plurinational State of	Bolivian	BO	BOL	068
+Bonaire, Sint Eustatius and Saba		BQ	BES	535
+Bosnia and Herzegovina	Bosnian, Herzegovinian	BA	BIH	070
+Botswana	Motswana (singular), Batswana (plural)	BW	BWA	072
+Bouvet Island		BV	BVT	074
+Brazil	Brazilian	BR	BRA	076
+British Indian Ocean Territory	Indian	IO	IOT	086
+Brunei Darussalam	Bruneian	BN	BRN	096
+Bulgaria	Bulgarian	BG	BGR	100
+Burkina Faso	Burkinabe	BF	BFA	854
+Burundi	Burundian	BI	BDI	108
+Cabo Verde	Cabo Verdean	CV	CPV	132
+Cambodia	Cambodian	KH	KHM	116
+Cameroon	Cameroonian	CM	CMR	120
+Canada	Canadian	CA	CAN	124
+Cayman Islands	Caymanian	KY	CYM	136
+Central African Republic	Central African	CF	CAF	140
+Chad	Chadian	TD	TCD	148
+Chile	Chilean	CL	CHL	152
+China	Chinese	CN	CHN	156
+Christmas Island	Christmas Island	CX	CXR	162
+Cocos (Keeling) Islands	Cocos Islander	CC	CCK	166
+Colombia	Colombian	CO	COL	170
+Comoros	Comoran	KM	COM	174
+Congo	Congolese or Congo	CG	COG	178
+Congo, The Democratic Republic of the	Congolese or Congo	CD	COD	180
+Cook Islands	Cook Islander	CK	COK	184
+Costa Rica	Costa Rican	CR	CRI	188
+Croatia	Croatian	HR	HRV	191
+Cuba	Cuban	CU	CUB	192
+Curaçao	Curacaoan; Dutch	CW	CUW	531
+Cyprus	Cypriot	CY	CYP	196
+Czechia	Czech	CZ	CZE	203
+Côte d'Ivoire	Ivoirian	CI	CIV	384
+Denmark	Danish	DK	DNK	208
+Djibouti	Djiboutian	DJ	DJI	262
+Dominica	Dominican	DM	DMA	212
+Dominican Republic	Dominican	DO	DOM	214
+Ecuador	Ecuadorian	EC	ECU	218
+Egypt	Egyptian	EG	EGY	818
+El Salvador	Salvadoran	SV	SLV	222
+Equatorial Guinea	Guinean	GQ	GNQ	226
+Eritrea	Eritrean	ER	ERI	232
+Estonia	Estonian	EE	EST	233
+Ethiopia	Ethiopian	ET	ETH	231
+Falkland Islands (Malvinas)	Falkland Island	FK	FLK	238
+Faroe Islands	Faroese	FO	FRO	234
+Fiji	Fijian	FJ	FJI	242
+Finland	Finnish	FI	FIN	246
+France	French	FR	FRA	250
+French Guiana		GF	GUF	254
+French Polynesia	French Polynesian	PF	PYF	258
+French Southern Territories		TF	ATF	260
+Gabon	Gabonese	GA	GAB	266
+Gambia		GM	GMB	270
+Georgia	Georgian	GE	GEO	268
+Germany	German	DE	DEU	276
+Ghana	Ghanaian	GH	GHA	288
+Gibraltar	Gibraltar	GI	GIB	292
+Greece	Greek	GR	GRC	300
+Greenland	Greenlandic	GL	GRL	304
+Grenada	Grenadian	GD	GRD	308
+Guadeloupe		GP	GLP	312
+Guam	Guamanian	GU	GUM	316
+Guatemala	Guatemalan	GT	GTM	320
+Guernsey	Channel Islander	GG	GGY	831
+Guinea	Guinean	GN	GIN	324
+Guinea-Bissau	Guinean	GW	GNB	624
+Guyana	Guyanese	GY	GUY	328
+Haiti	Haitian	HT	HTI	332
+Heard Island and McDonald Islands		HM	HMD	334
+Holy See (Vatican City State)		VA	VAT	336
+Honduras	Honduran	HN	HND	340
+Hong Kong	Chinese/Hong Kong	HK	HKG	344
+Hungary	Hungarian	HU	HUN	348
+Iceland	Icelandic	IS	ISL	352
+India	Indian	IN	IND	356
+Indonesia	Indonesian	ID	IDN	360
+Iran, Islamic Republic of	Iranian	IR	IRN	364
+Iraq	Iraqi	IQ	IRQ	368
+Ireland	Irish	IE	IRL	372
+Isle of Man	Manx	IM	IMN	833
+Israel	Israeli	IL	ISR	376
+Italy	Italian	IT	ITA	380
+Jamaica	Jamaican	JM	JAM	388
+Japan	Japanese	JP	JPN	392
+Jersey	Channel Islander	JE	JEY	832
+Jordan	Jordanian	JO	JOR	400
+Kazakhstan	Kazakhstani	KZ	KAZ	398
+Kenya	Kenyan	KE	KEN	404
+Kiribati	I-Kiribati	KI	KIR	296
+Korea, Democratic People's Republic of	Korean	KP	PRK	408
+Korea, Republic of	Korean	KR	KOR	410
+Kuwait	Kuwaiti	KW	KWT	414
+Kyrgyzstan	Kyrgyzstani	KG	KGZ	417
+Lao People's Democratic Republic		LA	LAO	418
+Latvia	Latvian	LV	LVA	428
+Lebanon	Lebanese	LB	LBN	422
+Lesotho	Basotho	LS	LSO	426
+Liberia	Liberian	LR	LBR	430
+Libya	Libyan	LY	LBY	434
+Liechtenstein	Liechtenstein	LI	LIE	438
+Lithuania	Lithuanian	LT	LTU	440
+Luxembourg	Luxembourg	LU	LUX	442
+Macao		MO	MAC	446
+Macedonia, Republic of	Macedonian	MK	MKD	807
+Madagascar	Malagasy	MG	MDG	450
+Malawi	Malawian	MW	MWI	454
+Malaysia	Malaysian	MY	MYS	458
+Maldives	Maldivian	MV	MDV	462
+Mali	Malian	ML	MLI	466
+Malta	Maltese	MT	MLT	470
+Marshall Islands	Marshallese	MH	MHL	584
+Martinique		MQ	MTQ	474
+Mauritania	Mauritanian	MR	MRT	478
+Mauritius	Mauritian	MU	MUS	480
+Mayotte		YT	MYT	175
+Mexico	Mexican	MX	MEX	484
+Micronesia, Federated States of	Micronesian; Chuukese, Kosraen(s), Pohnpeian(s), Yapese	FM	FSM	583
+Moldova, Republic of	Moldovan	MD	MDA	498
+Monaco	Monegasque or Monacan	MC	MCO	492
+Mongolia	Mongolian	MN	MNG	496
+Montenegro	Montenegrin	ME	MNE	499
+Montserrat	Montserratian	MS	MSR	500
+Morocco	Moroccan	MA	MAR	504
+Mozambique	Mozambican	MZ	MOZ	508
+Myanmar		MM	MMR	104
+Namibia	Namibian	NA	NAM	516
+Nauru	Nauruan	NR	NRU	520
+Nepal	Nepali	NP	NPL	524
+Netherlands	Dutch	NL	NLD	528
+New Caledonia	New Caledonian	NC	NCL	540
+New Zealand	New Zealand	NZ	NZL	554
+Nicaragua	Nicaraguan	NI	NIC	558
+Niger	Nigerien	NE	NER	562
+Nigeria	Nigerien	NG	NGA	566
+Niue	Niuean	NU	NIU	570
+Norfolk Island	Norfolk Islander(s)	NF	NFK	574
+Northern Mariana Islands	NA	MP	MNP	580
+Norway	Norwegian	NO	NOR	578
+Oman	Omani	OM	OMN	512
+Pakistan	Pakistani	PK	PAK	586
+Palau	Palauan	PW	PLW	585
+Palestine, State of		PS	PSE	275
+Panama	Panamanian	PA	PAN	591
+Papua New Guinea	Papua New Guinean	PG	PNG	598
+Paraguay	Paraguayan	PY	PRY	600
+Peru	Peruvian	PE	PER	604
+Philippines	Philippine	PH	PHL	608
+Pitcairn		PN	PCN	612
+Poland	Polish	PL	POL	616
+Portugal	Portuguese	PT	PRT	620
+Puerto Rico	Puerto Rican	PR	PRI	630
+Qatar	Qatari	QA	QAT	634
+Romania	Romanian	RO	ROU	642
+Russian Federation	Russian	RU	RUS	643
+Rwanda	Rwandan	RW	RWA	646
+Réunion		RE	REU	638
+Saint Barthélemy		BL	BLM	652
+Saint Helena, Ascension and Tristan da Cunha		SH	SHN	654
+Saint Kitts and Nevis	Kittitian, Nevisian	KN	KNA	659
+Saint Lucia	Saint Lucian	LC	LCA	662
+Saint Martin (French part)		MF	MAF	663
+Saint Pierre and Miquelon	French	PM	SPM	666
+Saint Vincent and the Grenadines	Saint Vincentian or Vincentian	VC	VCT	670
+Samoa	Samoan	WS	WSM	882
+San Marino	Sammarinese	SM	SMR	674
+Sao Tome and Principe	Sao Tomean	ST	STP	678
+Saudi Arabia	Saudi or Saudi Arabian	SA	SAU	682
+Senegal	Senegalese	SN	SEN	686
+Serbia	Serbian	RS	SRB	688
+Seychelles	Seychellois	SC	SYC	690
+Sierra Leone	Sierra Leonean	SL	SLE	694
+Singapore	Singapore	SG	SGP	702
+Sint Maarten (Dutch part)		SX	SXM	534
+Slovakia	Slovak	SK	SVK	703
+Slovenia	Slovenian	SI	SVN	705
+Solomon Islands	Solomon Islander	SB	SLB	090
+Somalia	Somali	SO	SOM	706
+South Africa	South African	ZA	ZAF	710
+South Georgia and the South Sandwich Islands	Georgian	GS	SGS	239
+South Sudan	Sudanese	SS	SSD	728
+Spain	Spanish	ES	ESP	724
+Sri Lanka	Sri Lankan	LK	LKA	144
+Sudan	Sudanese	SD	SDN	729
+Suriname	Surinamese	SR	SUR	740
+Svalbard and Jan Mayen		SJ	SJM	744
+Swaziland	Swazi	SZ	SWZ	748
+Sweden	Swedish	SE	SWE	752
+Switzerland	Swiss	CH	CHE	756
+Syrian Arab Republic	Syrian	SY	SYR	760
+Taiwan, Province of China	Taiwan (or Taiwanese)	TW	TWN	158
+Tajikistan	Tajikistani	TJ	TJK	762
+Tanzania, United Republic of	Tanzanian	TZ	TZA	834
+Thailand	Thai	TH	THA	764
+Timor-Leste	Timorese	TL	TLS	626
+Togo	Togolese	TG	TGO	768
+Tokelau	Tokelauan	TK	TKL	772
+Tonga	Tongan	TO	TON	776
+Trinidad and Tobago	Trinidadian, Tobagonian	TT	TTO	780
+Tunisia	Tunisian	TN	TUN	788
+Turkey	Turkish	TR	TUR	792
+Turkmenistan	Turkmen	TM	TKM	795
+Turks and Caicos Islands	none	TC	TCA	796
+Tuvalu	Tuvaluan	TV	TUV	798
+Uganda	Ugandan	UG	UGA	800
+Ukraine	Ukrainian	UA	UKR	804
+United Arab Emirates	Emirati	AE	ARE	784
+United Kingdom	British	GB	GBR	826
+United States	American	US	USA	840
+United States Minor Outlying Islands	American	UM	UMI	581
+Uruguay	Uruguayan	UY	URY	858
+Uzbekistan	Uzbekistani	UZ	UZB	860
+Vanuatu	Ni-Vanuatu	VU	VUT	548
+Venezuela, Bolivarian Republic of	Venezuelan	VE	VEN	862
+Viet Nam	Vietnamese	VN	VNM	704
+Virgin Islands, British	Virgin Islander	VG	VGB	092
+Virgin Islands, U.S.	Virgin Islander	VI	VIR	850
+Wallis and Futuna	Wallisian, Futunan, or Wallis and Futuna Islander	WF	WLF	876
+Western Sahara	Sahrawi, Sahrawian, Sahraouian	EH	ESH	732
+Yemen	Yemeni	YE	YEM	887
+Zambia	Zambian	ZM	ZMB	894
+Zimbabwe	Zimbabwean	ZW	ZWE	716
+Åland Islands		AX	ALA	248

@@ -87,8 +87,50 @@
   <row>
     <panel depends="$form.artist$">
       <html>
-        <img src="$Picture$" />
+        <img src="$Picture$"/>
        </html>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <map>
+        <search>
+          <query>index=jitsejan source="*theartstory_artists.csv"
+| eval leftbracket=replace(movement,"\[","")
+| eval movement=replace(leftbracket,"\]","")
+| makemv delim="," movement 
+| rex field=bornplace "(?P&lt;city&gt;.*),\s(?P&lt;country&gt;.*)" 
+| lookup geo_attr_us_states.csv state_name AS country 
+| eval state=if(isnotnull(state_code), country, NULL), country=if(isnotnull(state_code), "United States", country)
+| lookup geo_attr_countries.csv country AS country
+| stats count by country
+| rename country as Country | geom geo_countries featureIdField=Country</query>
+          <earliest>0</earliest>
+          <sampleRatio>1</sampleRatio>
+        </search>
+        <option name="drilldown">all</option>
+        <option name="mapping.choroplethLayer.colorBins">9</option>
+        <option name="mapping.choroplethLayer.colorMode">categorical</option>
+        <option name="mapping.choroplethLayer.maximumColor">0xDB5800</option>
+        <option name="mapping.choroplethLayer.minimumColor">0x2F25BA</option>
+        <option name="mapping.choroplethLayer.neutralPoint">0</option>
+        <option name="mapping.choroplethLayer.shapeOpacity">0.75</option>
+        <option name="mapping.choroplethLayer.showBorder">1</option>
+        <option name="mapping.data.maxClusters">100</option>
+        <option name="mapping.map.center">(0,0)</option>
+        <option name="mapping.map.panning">1</option>
+        <option name="mapping.map.scrollZoom">0</option>
+        <option name="mapping.map.zoom">2</option>
+        <option name="mapping.markerLayer.markerMaxSize">50</option>
+        <option name="mapping.markerLayer.markerMinSize">10</option>
+        <option name="mapping.markerLayer.markerOpacity">0.8</option>
+        <option name="mapping.showTiles">1</option>
+        <option name="mapping.tileLayer.maxZoom">19</option>
+        <option name="mapping.tileLayer.minZoom">0</option>
+        <option name="mapping.tileLayer.tileOpacity">1</option>
+        <option name="mapping.tileLayer.url">http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png</option>
+        <option name="mapping.type">choropleth</option>
+      </map>
     </panel>
   </row>
 </dashboard>
