@@ -34,7 +34,7 @@ access = read : [ * ], write : [ * ]
 export = none
 owner = admin
 version = 6.5.1
-modtime = 1482791009.887018000
+modtime = 1482873305.270902000
 
 [views/art_story_movements]
 access = read : [ * ], write : [ * ]
@@ -43,16 +43,8 @@ owner = admin
 version = 6.5.0
 modtime = 1482480392.566400600
 
-[views/art_story_artists_html]
-access = read : [ * ], write : [ * ]
-export = none
-owner = admin
-version = 6.5.1
-modtime = 1482790438.340272000
-
 [html/art_story_artists_html]
-access = read : [ * ], write : [ * ]
 owner = admin
 version = 6.5.1
-modtime = 1482790711.847878000
+modtime = 1482873375.550335000
 >>>>>>> 00d0a301a5abed9f3192367084292828bf03e069

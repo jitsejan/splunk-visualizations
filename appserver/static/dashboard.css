@@ -32,3 +32,24 @@ footer{
 h1, h2, a{
     color: rgb(102, 153, 255);
 }
+
+td.icon {
+    text-align: center;
+}
+
+td.icon i {
+    font-size: 15px;
+    text-shadow: 1px 1px #aaa;
+}
+
+td.icon .severe {
+    color: red;
+}
+
+td.icon .elevated {
+    color: orangered;
+}
+
+td.icon .low {
+    color: #006400;
+}
