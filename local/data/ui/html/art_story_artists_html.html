@@ -64,6 +64,11 @@ styles in <div> tags, similar to Bootstrap's grid system.
                 
                 <div class="panel-element-row">
                     <div id="element3" class="dashboard-element table" style="width: 100%">
+                        <div class="panel-head">
+                            <h3>Custom expanding table rows</h3>
+                            <br/>
+                            <p>Click the > arrow on a row to expand it!</p>
+                        </div>
                         <div class="panel-body"></div>
                     </div>
                 </div>
@@ -146,7 +151,8 @@ require([
     "splunkjs/mvc/searchmanager",
     "splunkjs/mvc/savedsearchmanager",
     "splunkjs/mvc/postprocessmanager",
-    "splunkjs/mvc/simplexml/urltokenmodel"
+    "splunkjs/mvc/simplexml/urltokenmodel",
+    "splunkjs/mvc/tableview"
     // Add comma-separated libraries and modules manually here, for example:
     // ..."splunkjs/mvc/simplexml/urltokenmodel",
     // "splunkjs/mvc/tokenforwarder"
@@ -183,7 +189,8 @@ require([
         SearchManager,
         SavedSearchManager,
         PostProcessManager,
-        UrlTokenModel
+        UrlTokenModel,
+        TableView
 
         // Add comma-separated parameter names here, for example: 
         // ...UrlTokenModel, 
@@ -359,7 +366,7 @@ require([
             }
         });
 
-        var element2 = new TableElement({
+        var element2 = new TableView({
             "id": "element2",
             "managerid": "search2",
             "el": $('#element2')
@@ -375,7 +382,7 @@ require([
             }
         });
 
-        var element3 = new TableElement({
+        var element3 = new TableView({
             "id": "element3",
             "managerid": "search3",
             "el": $('#element3')
@@ -389,6 +396,80 @@ require([
 
         DashboardController.addReadyDep(element4.contentLoaded());
         
+/*
+        
+                Define the customization for table cells
+
+        */
+
+        // Define icons for the custom table cell
+        var ICONS = {
+            severe: "alert-circle",
+            elevated: "alert",
+            low: "check-circle"
+        };
+
+        // Use the BaseCellRenderer class in TableView to create a custom table cell renderer
+            var CustomCellRenderer = TableView.BaseCellRenderer.extend({
+            canRender: function(cellData) {
+                // This method returns "true" for the "range" field
+                return cellData.field === "range";
+            },
+
+            // This render function only works when canRender returns "true"
+            render: function($td, cellData) {
+                console.log("cellData: ", cellData);
+
+                var icon = "question";
+                if(ICONS.hasOwnProperty(cellData.value)) {
+                    icon = ICONS[cellData.value];
+                }
+                $td.addClass("icon").html(_.template('<i class="icon-<%-icon%> <%- range %>" title="<%- range %>"></i>', {
+                    icon: icon,
+                    range: cellData.value
+                }));
+            }
+        });
+
+        // Use the BasicRowRenderer class to create a custom table row renderer
+        var CustomRowRenderer = TableView.BaseRowExpansionRenderer.extend({
+            canRender: function(rowData) {
+                console.log("RowData: ", rowData);
+                return true;
+            },
+
+            render: function($container, rowData) {
+            // Print the rowData object to the console
+            console.log("RowData: ", rowData);
+
+            // Display some of the rowData in the expanded row
+            $container.append("<div>"
+                + "<b>rowIndex</b>: " + rowData.rowIndex + "<br>"
+                + "<b>colspan</b>: " + rowData.colspan + "<br>"
+                + "<b>fields</b>: " + rowData.fields + "<br>"
+                + "<b>values</b>: " + rowData.values
+                + "</div>");
+            }
+        });
+
+        // Create an instance of the custom cell renderer,
+        // add it to the second table, and render the table
+        var myCellRenderer = new CustomCellRenderer();
+        element2.addCellRenderer(myCellRenderer);
+        element2.render();
+
+        // Create an instance of the custom row renderer,
+        // add it to the third table, and render the table
+        var myRowRenderer = new CustomRowRenderer();
+        element3.addRowExpansionRenderer(myRowRenderer);
+        element3.render();
+
+        /*
+
+                End customization
+
+        */
+
         // Initialize time tokens to default
         if (!defaultTokenModel.has('earliest') && !defaultTokenModel.has('latest')) {
             defaultTokenModel.set({ earliest: '0', latest: '' });

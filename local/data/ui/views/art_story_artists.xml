@@ -110,4 +110,30 @@
      </html>
     </panel>
   </row>
+  <row>
+    <panel>
+      <table>
+        <search>
+          <query>index=jitsejan source="*theartstory_artists.csv" name="Hannah Wilke" 
+| rename image as artistimage
+| rex mode=sed "s/u\'/'/g" field=artworks
+| rex mode=sed "s/\'/\"/g" field=artworks
+| rex max_match=10 "(?&lt;json_field&gt;{[^}]+})" field=artworks
+| mvexpand json_field
+| spath input=json_field 
+| rename date AS artdate image as artimage materials as artmaterials title as arttitle
+| rex (?&lt;artdate&gt;\d{4}) field=artdate
+| table  artdate artimage artmaterials arttitle</query>
+          <sampleRatio>1</sampleRatio>
+        </search>
+        <option name="count">20</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">cell</option>
+        <option name="percentagesRow">false</option>
+        <option name="rowNumbers">false</option>
+        <option name="totalsRow">false</option>
+        <option name="wrap">true</option>
+      </table>
+    </panel>
+  </row>
 </dashboard>
