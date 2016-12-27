@@ -1,5 +1,5 @@
 <dashboard hideFooter="true">
-  <label>Art Story Artists</label>
+  <label>Art Story Artists HTML</label>
   <row>
     <panel>
       <title>Birthplaces of the artists</title>
@@ -104,7 +104,7 @@
             $Name$
             $Picture$
             $Artworks$
-            $Artworks[0].title$
+            $Artworks[0].name$
            </div>
         </p>
      </html>
