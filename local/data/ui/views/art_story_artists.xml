@@ -1,5 +1,12 @@
-<dashboard hideFooter="true">
+<form hideFooter="true">
   <label>Art Story Artists</label>
+  <fieldset submitButton="false">
+    <input type="radio" token="Overview" searchWhenChanged="true">
+      <label>Overview</label>
+      <choice value="birthcountry">Country of birth</choice>
+      <choice value="deadcountry">Country of dead</choice>
+    </input>
+  </fieldset>
   <row>
     <panel>
       <title>Birthplaces of the artists</title>
@@ -8,7 +15,8 @@
           <query>index=jitsejan source="*theartstory_artists.csv"
 | eval leftbracket=replace(movement,"\[","")
 | eval movement=replace(leftbracket,"\]","")
-| makemv delim="," movement 
+| makemv delim="," movement
+| eval movement=trim(movement)
 | lookup geo_attr_us_states.csv state_name AS borncountry 
 | eval state=if(isnotnull(state_code), borncountry, NULL), borncountry=if(isnotnull(state_code), "United States", borncountry)
 | lookup geo_attr_countries.csv country AS borncountry
@@ -20,7 +28,7 @@
           <sampleRatio>1</sampleRatio>
         </search>
         <option name="drilldown">all</option>
-        <option name="height">405</option>
+        <option name="height">558</option>
         <option name="mapping.choroplethLayer.colorBins">6</option>
         <option name="mapping.choroplethLayer.colorMode">categorical</option>
         <option name="mapping.choroplethLayer.maximumColor">0xDB5800</option>
@@ -47,6 +55,38 @@
         </drilldown>
       </map>
     </panel>
+    <panel>
+      <table>
+        <search>
+          <query>index=jitsejan source="*theartstory_artists.csv"
+| eval leftbracket=replace(movement,"\[","")
+| eval movement=replace(leftbracket,"\]","")
+| makemv delim="," movement
+| eval movement=trim(movement)
+| lookup geo_attr_us_states.csv state_name AS borncountry 
+| eval state=if(isnotnull(state_code), borncountry, NULL), borncountry=if(isnotnull(state_code), "United States", borncountry)
+| lookup geo_attr_countries.csv country AS borncountry
+| top borncountry limit=20
+| rename borncountry as Country 
+| sort -count
+| geom geo_countries featureIdField=Country
+| table Country count 
+| rename count as Amount</query>
+          <earliest>0</earliest>
+          <sampleRatio>1</sampleRatio>
+        </search>
+        <option name="count">20</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">cell</option>
+        <option name="percentagesRow">false</option>
+        <option name="rowNumbers">false</option>
+        <option name="totalsRow">false</option>
+        <option name="wrap">true</option>
+        <drilldown>
+          <set token="form.country">$row.Country$</set>
+        </drilldown>
+      </table>
+    </panel>
   </row>
   <row>
     <panel depends="$form.country$">
@@ -56,13 +96,14 @@
           <query>index=jitsejan source="*theartstory_artists.csv" 
 | eval leftbracket=replace(movement,"\[","") 
 | eval movement=replace(leftbracket,"\]","") 
-| makemv delim="," movement 
+| makemv delim="," movement
+| eval movement=trim(movement)
 | lookup geo_attr_us_states.csv state_name AS borncountry 
 | eval state=if(isnotnull(state_code), borncountry, NULL), borncountry=if(isnotnull(state_code), "United States", borncountry) 
 | lookup geo_attr_countries.csv country AS borncountry 
 | search borncountry="$form.country$"
 | table name bornyear diedyear movement
-| rename name AS Name, bornyear AS "Born in", diedyear AS "Died in" movement AS Movement
+| rename name AS Name, bornyear AS "Born in", diedyear AS "Died in" movement as Movement
 | sort name</query>
           <earliest>1482263743.000</earliest>
           <sampleRatio>1</sampleRatio>
@@ -77,9 +118,51 @@
         </drilldown>
       </table>
     </panel>
+    <panel depends="$form.country$">
+      <title>Movements for $form.country$</title>
+      <chart>
+        <search>
+          <query>index=jitsejan source="*theartstory_artists.csv" 
+| eval leftbracket=replace(movement,"\[","") 
+| eval movement=replace(leftbracket,"\]","") 
+| makemv delim="," movement
+| eval movement=trim(movement)
+| lookup geo_attr_us_states.csv state_name AS borncountry 
+| eval state=if(isnotnull(state_code), borncountry, NULL), borncountry=if(isnotnull(state_code), "United States", borncountry) 
+| lookup geo_attr_countries.csv country AS borncountry 
+| search borncountry="$form.country$"
+| top movement</query>
+          <earliest>1482263743.000</earliest>
+          <sampleRatio>1</sampleRatio>
+        </search>
+        <option name="charting.axisLabelsX.majorLabelStyle.overflowMode">ellipsisNone</option>
+        <option name="charting.axisLabelsX.majorLabelStyle.rotation">0</option>
+        <option name="charting.axisTitleX.visibility">visible</option>
+        <option name="charting.axisTitleY.visibility">visible</option>
+        <option name="charting.axisTitleY2.visibility">visible</option>
+        <option name="charting.axisX.scale">linear</option>
+        <option name="charting.axisY.scale">linear</option>
+        <option name="charting.axisY2.enabled">0</option>
+        <option name="charting.axisY2.scale">inherit</option>
+        <option name="charting.chart">pie</option>
+        <option name="charting.chart.bubbleMaximumSize">50</option>
+        <option name="charting.chart.bubbleMinimumSize">10</option>
+        <option name="charting.chart.bubbleSizeBy">area</option>
+        <option name="charting.chart.nullValueMode">gaps</option>
+        <option name="charting.chart.showDataLabels">none</option>
+        <option name="charting.chart.sliceCollapsingThreshold">0.01</option>
+        <option name="charting.chart.stackMode">default</option>
+        <option name="charting.chart.style">shiny</option>
+        <option name="charting.drilldown">all</option>
+        <option name="charting.layout.splitSeries">0</option>
+        <option name="charting.layout.splitSeries.allowIndependentYRanges">0</option>
+        <option name="charting.legend.labelStyle.overflowMode">ellipsisMiddle</option>
+        <option name="charting.legend.placement">right</option>
+      </chart>
+    </panel>
   </row>
   <row>
-    <panel>
+    <panel depends="$form.artist$">
       <table>
         <search>
           <query>index=jitsejan source="*theartstory_artists.csv" name="$form.artist$"
@@ -96,25 +179,22 @@
     </panel>
   </row>
   <row>
-    <panel>
+    <panel depends="$form.artist$">
       <title>$form.artist$</title>
       <html>
         <p style="text-align:center; font-size:400%; color: #000000">
            <div style="color: #73a550">
-            $Name$
-            $Picture$
-            $Artworks$
-            $Artworks[0].title$
+            <img src="$Picture$"/>
            </div>
         </p>
      </html>
     </panel>
   </row>
   <row>
-    <panel>
+    <panel depends="$form.artist$">
       <table>
         <search>
-          <query>index=jitsejan source="*theartstory_artists.csv" name="Hannah Wilke" 
+          <query>index=jitsejan source="*theartstory_artists.csv" name="$form.artist$" 
 | rename image as artistimage
 | rex mode=sed "s/u\'/'/g" field=artworks
 | rex mode=sed "s/\'/\"/g" field=artworks
@@ -136,4 +216,4 @@
       </table>
     </panel>
   </row>
-</dashboard>
+</form>
