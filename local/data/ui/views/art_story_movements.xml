@@ -1,4 +1,8 @@
 <dashboard>
+  <module name="SideviewUtils" layoutPanel="appHeader"/>
+  <module name="HTML" layoutPanel="viewHeader"><param name="html">
+    <h1>Embedding static HTML</h1>
+    </param></module>
   <label>Art Story Movements</label>
   <row>
     <panel>

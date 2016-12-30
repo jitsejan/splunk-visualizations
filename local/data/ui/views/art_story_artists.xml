@@ -1,12 +1,5 @@
 <form hideFooter="true">
   <label>Art Story Artists</label>
-  <fieldset submitButton="false">
-    <input type="radio" token="Overview" searchWhenChanged="true">
-      <label>Overview</label>
-      <choice value="birthcountry">Country of birth</choice>
-      <choice value="deadcountry">Country of dead</choice>
-    </input>
-  </fieldset>
   <row>
     <panel>
       <title>Birthplaces of the artists</title>
@@ -163,8 +156,8 @@
   </row>
   <row>
     <panel depends="$form.artist$">
-      <table>
-        <search>
+      <title>$form.artist$</title>
+      <search>
           <query>index=jitsejan source="*theartstory_artists.csv" name="$form.artist$"
 | table name bornyear image artworks</query>
           <earliest>1481714197</earliest>
@@ -175,13 +168,8 @@
             <set token="Artworks">$result.artworks$</set>
           </finalized>
         </search>
-      </table>
-    </panel>
-  </row>
-  <row>
-    <panel depends="$form.artist$">
-      <title>$form.artist$</title>
       <html>
+        
         <p style="text-align:center; font-size:400%; color: #000000">
            <div style="color: #73a550">
             <img src="$Picture$"/>
