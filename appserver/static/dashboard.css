@@ -36,3 +36,11 @@ h1, h2, a{
 img.td-image{
     height: 80px;
 }
+
+table.info-table{
+
+}
+.image-holder, info-holder{
+    float: left;
+    padding: 20px;
+}

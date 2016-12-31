@@ -1,6 +1,20 @@
 <dashboard hideFooter="true">
   <label>Art Story Artists</label>
   <search>
+    <query>index=jitsejan source="*theartstory_artists.csv" 
+| eval leftbracket=replace(movement,"\[","") 
+| eval movement=replace(leftbracket,"\]","") 
+| makemv delim="," movement
+| eval movement=trim(movement)
+| lookup geo_attr_us_states.csv state_name AS borncountry 
+| eval state=if(isnotnull(state_code), borncountry, NULL), borncountry=if(isnotnull(state_code), "United States", borncountry) 
+| lookup geo_attr_countries.csv country AS borncountry 
+| search borncountry="$form.country$"
+| top movement</query>
+    <earliest>1482263743.000</earliest>
+    <sampleRatio>1</sampleRatio>
+  </search>
+  <search>
     <query>index=jitsejan source="*theartstory_artists.csv" name="$form.artist$"
 | table image name bornyear bornplace borncountry diedyear diedplace diedcountry movement startyear endyear</query>
     <earliest>1481714197</earliest>
@@ -115,12 +129,15 @@
 | lookup geo_attr_countries.csv country AS borncountry 
 | search borncountry="$form.country$"
 | table image name bornyear diedyear movement
-| rename image AS picture name AS Name, bornyear AS "Born in", diedyear AS "Died in" movement as Movement
+| rename image AS Picture name AS Name, bornyear AS "Born in", diedyear AS "Died in" movement as Movement
 | sort name</query>
           <earliest>1482263743.000</earliest>
           <sampleRatio>1</sampleRatio>
         </search>
         <drilldown>
+          <condition field="Picture">
+            <set token="form.artist">$row.Name$</set>
+          </condition>
           <condition field="Name">
             <set token="form.artist">$row.Name$</set>
           </condition>
@@ -130,33 +147,30 @@
         </drilldown>
       </table>
     </panel>
-    
   </row>
   <row>
     <panel depends="$form.artist$">
       <title>$form.artist$</title>
-      <search>
-          <query>index=jitsejan source="*theartstory_artists.csv" 
-| eval leftbracket=replace(movement,"\[","") 
-| eval movement=replace(leftbracket,"\]","") 
-| makemv delim="," movement
-| eval movement=trim(movement)
-| lookup geo_attr_us_states.csv state_name AS borncountry 
-| eval state=if(isnotnull(state_code), borncountry, NULL), borncountry=if(isnotnull(state_code), "United States", borncountry) 
-| lookup geo_attr_countries.csv country AS borncountry 
-| search borncountry="$form.country$"
-| top movement</query>
-          <earliest>1482263743.000</earliest>
-          <sampleRatio>1</sampleRatio>
-        </search>
       <html>
-        
-        <p style="text-align:center; font-size:400%; color: #000000">
-           <div style="color: #73a550">
-             $Bornyear$, $Borncountry$, $Bornplace$
-            <img src="$Picture$"/>
-           </div>
-        </p>
+        <div class="image-holder">
+          <img src="$Picture$"/>
+        </div>
+        <div class="info-holder">
+          <table class="info-table">
+            <tr>
+              <td>Born</td>
+              <td>$Bornyear$, $Bornplace$, $Borncountry$</td>
+            </tr>
+            <tr>
+              <td>Died</td>
+              <td>$Diedyear$, $Diedplace$, $Diedcountry$</td>
+            </tr>
+            <tr>
+              <td>Active</td>
+              <td>$Startyear$ - $Endyear$</td>
+            </tr>
+          </table>
+        </div>
      </html>
     </panel>
   </row>
@@ -171,19 +185,60 @@
 | rex max_match=10 "(?&lt;json_field&gt;{[^}]+})" field=artworks
 | mvexpand json_field
 | spath input=json_field 
-| rename date AS artdate image as artimage materials as artmaterials title as arttitle
+| rename date AS artdate image as artimage
 | rex (?&lt;artdate&gt;\d{4}) field=artdate
-| table  artdate artimage artmaterials arttitle</query>
+| table artdate artimage
+| rename artdate as Year artimage as Image</query>
           <sampleRatio>1</sampleRatio>
         </search>
         <option name="count">20</option>
         <option name="dataOverlayMode">none</option>
-        <option name="drilldown">cell</option>
+        <option name="drilldown">row</option>
         <option name="percentagesRow">false</option>
         <option name="rowNumbers">false</option>
         <option name="totalsRow">false</option>
         <option name="wrap">true</option>
+        <drilldown>
+          <set token="form.artimage">$row.Image$</set>
+        </drilldown>
       </table>
+    </panel>
+  </row>
+  <row>
+    <panel depends="$form.artimage$">
+      <title>Painting information</title>
+      <search>
+          <query>index=jitsejan source="*theartstory_artists.csv"   | rename image as artistimage | rex mode=sed "s/u\'/'/g" field=artworks | rex mode=sed "s/\'/\"/g" field=artworks | rex max_match=10 "(?&lt;json_field&gt;{[^}]+})" field=artworks | mvexpand json_field | spath input=json_field  | rename date AS artdate image as artimage materials as artmaterials title as arttitle | search artimage="$form.artimage$" | rex (?&lt;artdate&gt;\d{4}) field=artdate | table artdate arttitle artimage artmaterials</query>
+          <earliest>1482263743.000</earliest>
+          <sampleRatio>1</sampleRatio>
+          <finalized>
+            <set token="Artdate">$result.artdate$</set>
+            <set token="Arttitle">$result.arttitle$</set>
+            <set token="Artimage">$result.artimage$</set>
+            <set token="Artmaterials">$result.artmaterials$</set>
+          </finalized>
+        </search>
+        <html>
+          <div class="image-holder">
+            <img src="$Artimage$"/>
+          </div>
+          <div class="info-holder">
+            <table class="info-table">
+              <tr>
+                <td>Title</td>
+                <td>$Arttitle$</td>
+              </tr>
+              <tr>
+                <td>Date</td>
+                <td>$Artdate$</td>
+              </tr>
+              <tr>
+                <td>Details</td>
+                <td>$Artmaterials$</td>
+              </tr>
+            </table>
+          </div>
+       </html>
     </panel>
   </row>
 </dashboard>
