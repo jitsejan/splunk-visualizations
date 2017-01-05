@@ -1,5 +1,21 @@
 <dashboard script="autodiscover.js">
   <label>Artists influences</label>
+  <fieldset autorun="true" submitButton="false">
+    <input type="dropdown" token="amount">
+      <label>Select an amount of artists</label>
+      <default>5</default>
+      <choice value="1">1</choice>
+      <choice value="2">2</choice>
+      <choice value="3">3</choice>
+      <choice value="4">4</choice>
+      <choice value="5">5</choice>
+      <choice value="10">10</choice>
+      <choice value="15">15</choice>
+      <choice value="20">20</choice>
+      <choice value="30">30</choice>
+      <choice value="100">100</choice>
+    </input>
+  </fieldset>
   <row>
     <panel>
       <html>
@@ -26,7 +42,7 @@
     | eval influence_on_artists=trim(influence_on_artists) 
     | stats count by influence_on_artists 
     | sort -count 
-    | return 10 influence_on_artists] 
+    | return $form.amount$ influence_on_artists] 
 | eval leftbracket=replace(movement,"\[","") 
 | eval movement=replace(leftbracket,"\]","") 
 | makemv delim="," movement
