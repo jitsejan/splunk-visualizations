@@ -1,0 +1,50 @@
+<dashboard script="autodiscover.js">
+  <label>Artists influences</label>
+  <row>
+    <panel>
+      <html>
+            <div id="custom" class="splunk-view" data-require="app/simple_xml_examples/components/forcedirected/forcedirected" data-options="{                         &quot;managerid&quot;: &quot;search1&quot;                     }" style="height: 500px;">
+            </div>
+        </html>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <table id="table2">
+        <search>
+          <query>index=jitsejan source="*theartstory_artists.csv" 
+| eval leftbracket=replace(influence_on_artists,"\[","") 
+| eval influence_on_artists=replace(leftbracket,"\]","") 
+| makemv delim="," influence_on_artists 
+| mvexpand influence_on_artists 
+| eval influence_on_artists=trim(influence_on_artists)
+| search    [ search index=jitsejan source="*theartstory_artists.csv" 
+    | eval leftbracket=replace(influence_on_artists,"\[","") 
+    | eval influence_on_artists=replace(leftbracket,"\]","") 
+    | makemv delim="," influence_on_artists 
+    | mvexpand influence_on_artists 
+    | eval influence_on_artists=trim(influence_on_artists) 
+    | stats count by influence_on_artists 
+    | sort -count 
+    | return 10 influence_on_artists] 
+| eval leftbracket=replace(movement,"\[","") 
+| eval movement=replace(leftbracket,"\]","") 
+| makemv delim="," movement
+| mvexpand movement
+| table name influence_on_artists movement
+| dedup name influence_on_artists
+| rename name as Artist influence_on_artists as "Influenced by" movement as Movement</query>
+          <earliest>0</earliest>
+          <sampleRatio>1</sampleRatio>
+        </search>
+        <option name="count">50</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">cell</option>
+        <option name="percentagesRow">false</option>
+        <option name="rowNumbers">false</option>
+        <option name="totalsRow">false</option>
+        <option name="wrap">true</option>
+      </table>
+    </panel>
+  </row>
+</dashboard>

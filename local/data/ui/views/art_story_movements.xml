@@ -59,4 +59,35 @@
       </chart>
     </panel>
   </row>
+  <row>
+    <html>
+            <h2>Gantt Chart demo</h2>
+            <div id="demo-search" class="splunk-manager" data-require="splunkjs/mvc/searchmanager" data-options="{                     &quot;search&quot;: { &quot;type&quot;: &quot;token_safe&quot;, &quot;value&quot;: &quot;index=_internal sourcetype=splunkd | where random()%100&lt;$$filter$$ | eval resource=\&quot;resource\&quot;.random()%10 | transaction maxpause=1m resource | search duration&gt;0 | eval user=\&quot;user\&quot;.random()%7 | eval extras=\&quot;{\\\&quot;Source Type\\\&quot;:\\\&quot;\&quot;+sourcetype+\&quot;\\\&quot;}\&quot;&quot; },                     &quot;earliest_time&quot;: { &quot;type&quot;: &quot;token_safe&quot;, &quot;value&quot;: &quot;$$time.earliest$$&quot; },                     &quot;latest_time&quot;: { &quot;type&quot;: &quot;token_safe&quot;, &quot;value&quot;: &quot;$$time.latest$$&quot; },                     &quot;cancelOnUnload&quot;: true,                     &quot;preview&quot;: true                  }">
+            </div>
+            <div id="demo-view" class="splunk-view" data-require="app/gantt/components/gantt/gantt" data-options="{                     &quot;managerid&quot;: &quot;demo-search&quot;,                     &quot;startField&quot;: &quot;_time&quot;,                     &quot;durationField&quot;: &quot;duration&quot;,                     &quot;categoryLabel&quot;: &quot;Resource&quot;,                     &quot;categoryField&quot;: &quot;resource&quot;,                     &quot;categorySearch&quot;: &quot;search index=_internal | stats count | eval resource=\&quot;Magic\&quot;&quot;,                     &quot;seriesLabel&quot;: &quot;User&quot;,                     &quot;seriesField&quot;: &quot;user&quot;,                     &quot;extrasField&quot;: &quot;extras&quot;                  }">
+            </div>
+        </html>
+  </row>
+  <row>
+    <panel>
+      <table>
+        <search>
+          <query>index=jitsejan source="*theartstory_artists.csv" 
+| table name influence_by_artists influence_by_movements 
+| rename name as source influence_by_artists as target influence_by_movements as category 
+| stats count by source target category 
+| sort count</query>
+          <earliest>0</earliest>
+          <sampleRatio>1</sampleRatio>
+        </search>
+        <option name="count">50</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">cell</option>
+        <option name="percentagesRow">false</option>
+        <option name="rowNumbers">false</option>
+        <option name="totalsRow">false</option>
+        <option name="wrap">true</option>
+      </table>
+    </panel>
+  </row>
 </dashboard>
