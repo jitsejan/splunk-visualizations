@@ -33,13 +33,14 @@ modtime = 1482145210.659185700
 access = read : [ * ], write : [ * ]
 export = none
 owner = admin
-version = 6.5.0
-modtime = 1482508752.688906900
+version = 6.5.1
+modtime = 1483151295.733735000
 
 [views/art_story_movements]
 access = read : [ * ], write : [ * ]
 export = none
 owner = admin
+<<<<<<< HEAD
 version = 6.5.0
 modtime = 1483632228.306245400
 
@@ -48,4 +49,25 @@ export = none
 owner = admin
 version = 6.5.0
 modtime = 1483644857.023818900
+=======
+version = 6.5.1
+modtime = 1483093714.821717000
+
+[html/art_story_artists_html]
+owner = admin
+version = 6.5.1
+modtime = 1483096879.647300000
+
+[html/art_story_artists_converted]
+owner = admin
+version = 6.5.1
+modtime = 1483147085.517861000
+
+[html/art_story_artists]
+access = read : [ * ], write : [ * ]
+export = none
+owner = admin
+version = 6.5.1
+modtime = 1483151295.727341000
+>>>>>>> 3d1321f75f9fbe6ab512124d8a33ae6ad2490be1
 >>>>>>> 00d0a301a5abed9f3192367084292828bf03e069

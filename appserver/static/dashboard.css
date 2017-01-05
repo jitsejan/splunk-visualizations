@@ -14,7 +14,7 @@ header{
 }
 .dashboard-body{
 	background-color: white;
-	height: 100%;
+	min-height: 100%;
 }
 .dashboard{
 	background-color: white;
@@ -31,4 +31,16 @@ footer{
 
 h1, h2, a{
     color: rgb(102, 153, 255);
+}
+
+img.td-image{
+    height: 80px;
+}
+
+table.info-table{
+
+}
+.image-holder, info-holder{
+    float: left;
+    padding: 20px;
 }

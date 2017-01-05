@@ -7,5 +7,6 @@
   <collection label="The Art Story">
     <view name="art_story_artists" />
     <view name="art_story_movements" />
+    <view name="art_story_influences" />
   </collection>
 </nav>
