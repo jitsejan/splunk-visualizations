@@ -106,11 +106,11 @@ define(["api/SplunkVisualizationBase","api/SplunkVisualizationUtils"], function(
 	            // Clear the div
 	            this.$el.empty();
 	    
-	            // Pick a color for now
-	            var mainColor = 'yellow';
+	            // Get color config or use a default yellow shade
+	            var mainColor = config[this.getPropertyNamespaceInfo().propertyNamespace + 'mainColor'] || '#f7bc38';
 	        
-	            // Set domain max
-	            var maxValue = 100;
+	            // Set meter max value or use a default
+	            var maxValue = parseFloat(config[this.getPropertyNamespaceInfo().propertyNamespace + 'maxValue']) || 100;
 
 	            // Set height and width
 	            var height = 220;
