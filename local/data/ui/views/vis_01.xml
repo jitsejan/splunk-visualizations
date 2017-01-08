@@ -6,6 +6,25 @@
   </init>
   <label>Art Story Artists</label>
   <search>
+    <query>index=jitsejan source="*theartstory_artists.csv"
+| eval leftbracket=replace(movement,"\[","")
+| eval movement=replace(leftbracket,"\]","")
+| makemv delim="," movement
+| eval movement=trim(movement)
+| lookup geo_attr_us_states.csv state_name AS borncountry 
+| lookup artists_countries_coordinates.csv country AS borncountry 
+| eval state=if(isnotnull(state_code), borncountry, NULL), borncountry=if(isnotnull(state_code), "United States", borncountry)
+| eval coord="("+latitude+","+longitude+")"
+| search borncountry="$form.country$" 
+| dedup coord
+| table coord</query>
+    <earliest>1482263743.000</earliest>
+    <sampleRatio>1</sampleRatio>
+    <finalized>
+      <set token="form.center">$result.coord$</set>
+    </finalized>
+  </search>
+  <search>
     <query>index=jitsejan source="*theartstory_artists.csv"   | rename image as artistimage | rex mode=sed "s/u\'/'/g" field=artworks | rex mode=sed "s/\'/\"/g" field=artworks | rex max_match=10 "(?&lt;json_field&gt;{[^}]+})" field=artworks | mvexpand json_field | spath input=json_field  | rename date AS artdate image as artimage materials as artmaterials title as arttitle | search artimage="$form.artimage$" | rex (?&lt;artdate&gt;\d{4}) field=artdate | table artdate arttitle artimage artmaterials</query>
     <earliest>1482263743.000</earliest>
     <sampleRatio>1</sampleRatio>
@@ -195,49 +214,6 @@
         </search>
       </viz>
     </panel>
-    <panel>
-      <title>Pie chart of the movements</title>
-      <chart>
-        <title>$form.country$</title>
-        <search>
-          <query>index=jitsejan source="*theartstory_artists.csv" 
-| eval leftbracket=replace(movement,"\[","") 
-| eval movement=replace(leftbracket,"\]","") 
-| makemv delim="," movement
-| eval movement=trim(movement)
-| lookup geo_attr_us_states.csv state_name AS borncountry 
-| eval state=if(isnotnull(state_code), borncountry, NULL), borncountry=if(isnotnull(state_code), "United States", borncountry) 
-| lookup geo_attr_countries.csv country AS borncountry 
-| search borncountry="$form.country$"
-| stats count by movement</query>
-          <earliest>1482263743.000</earliest>
-          <sampleRatio>1</sampleRatio>
-        </search>
-        <option name="charting.axisLabelsX.majorLabelStyle.overflowMode">ellipsisNone</option>
-        <option name="charting.axisLabelsX.majorLabelStyle.rotation">0</option>
-        <option name="charting.axisTitleX.visibility">visible</option>
-        <option name="charting.axisTitleY.visibility">visible</option>
-        <option name="charting.axisTitleY2.visibility">visible</option>
-        <option name="charting.axisX.scale">linear</option>
-        <option name="charting.axisY.scale">linear</option>
-        <option name="charting.axisY2.enabled">0</option>
-        <option name="charting.axisY2.scale">inherit</option>
-        <option name="charting.chart">pie</option>
-        <option name="charting.chart.bubbleMaximumSize">50</option>
-        <option name="charting.chart.bubbleMinimumSize">10</option>
-        <option name="charting.chart.bubbleSizeBy">area</option>
-        <option name="charting.chart.nullValueMode">gaps</option>
-        <option name="charting.chart.showDataLabels">none</option>
-        <option name="charting.chart.sliceCollapsingThreshold">0.01</option>
-        <option name="charting.chart.stackMode">default</option>
-        <option name="charting.chart.style">shiny</option>
-        <option name="charting.drilldown">all</option>
-        <option name="charting.layout.splitSeries">0</option>
-        <option name="charting.layout.splitSeries.allowIndependentYRanges">0</option>
-        <option name="charting.legend.labelStyle.overflowMode">ellipsisMiddle</option>
-        <option name="charting.legend.placement">right</option>
-      </chart>
-    </panel>
   </row>
   <row>
     <panel depends="$form.country$">
@@ -271,6 +247,26 @@
           </condition>
         </drilldown>
       </table>
+    </panel>
+    <panel>
+      <title>Heatmap of the movements</title>
+      <viz type="treemap_app.treemap">
+        <title>$form.country$</title>
+        <search>
+          <query>index=jitsejan source="*theartstory_artists.csv" 
+| eval leftbracket=replace(movement,"\[","") 
+| eval movement=replace(leftbracket,"\]","") 
+| makemv delim="," movement 
+| eval movement=trim(movement) 
+| lookup geo_attr_us_states.csv state_name AS borncountry 
+| eval state=if(isnotnull(state_code), borncountry, NULL), borncountry=if(isnotnull(state_code), "United States", borncountry) 
+| lookup geo_attr_countries.csv country AS borncountry 
+| search borncountry="$form.country$" 
+| stats count by movement, name</query>
+          <earliest>1482263743.000</earliest>
+          <sampleRatio>1</sampleRatio>
+        </search>
+      </viz>
     </panel>
   </row>
   <row>
