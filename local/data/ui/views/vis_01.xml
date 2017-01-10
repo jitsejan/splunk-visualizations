@@ -192,8 +192,8 @@
       </map>
     </panel>
     <panel>
-      <title>Histogram of the ages</title>
-      <viz type="Splunk_ML_Toolkit.HistogramViz">
+      <title>Age distribution</title>
+      <chart>
         <title>$form.country$</title>
         <search>
           <query>index=jitsejan source="*theartstory_artists.csv" 
@@ -212,7 +212,9 @@
           <earliest>1482263743.000</earliest>
           <sampleRatio>1</sampleRatio>
         </search>
-      </viz>
+        <option name="charting.chart">column</option>
+        <option name="height">436</option>
+      </chart>
     </panel>
   </row>
   <row>
