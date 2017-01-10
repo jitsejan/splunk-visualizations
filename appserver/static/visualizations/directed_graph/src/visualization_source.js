@@ -20,7 +20,7 @@ define([
             this.$el = $(this.el);
              
             // Add a css selector class
-            this.$el.addClass('splunk-radial-meter');
+            this.$el.addClass('splunk-directed-graph');
         },
  
         getInitialDataParams: function() {
@@ -30,22 +30,31 @@ define([
             });
         },
 
-        formatData: function(data, config) {
-    
-            // Check for an empty data object
-            if(data.rows.length < 1){
-                return false;
-            }
-            var datum = SplunkVisualizationUtils.escapeHtml(parseFloat(data.rows[0][0]));
-        
-            // Check for invalid data
-            if(_.isNaN(datum)){
-                throw new SplunkVisualizationBase.VisualizationError(
-                    'This meter only supports numbers'
-                );
-            }
+        formatData: function(data) {
+            console.log("data.fields", data.fields);
             
-            return datum;
+            var nodes = {};
+            var links = [];
+            
+            var fields = data.fields;
+			var rows = data.rows;
+
+            rows.forEach( function(row) {
+                var sourceName = row[0];
+                var targetName = row[1];
+                var categoryName = row[2];
+                var link = {}
+                link.source = nodes[sourceName] || 
+                    (nodes[sourceName] = {name: sourceName, group: categoryName, value: 0});
+                link.target = nodes[targetName] || 
+                    (nodes[targetName] = {name: targetName, group: categoryName, value: 0});
+                link.value = +link.value;
+                console.log("Link", link)
+                links.push(link);
+            });
+            
+            console.log("D3 formatted data", {nodes: d3.values(nodes), links: links});
+            return {nodes: d3.values(nodes), links: links};
         },
   
         updateView: function(data, config) {
@@ -63,6 +72,7 @@ define([
  
         var mainColor = config[this.getPropertyNamespaceInfo().propertyNamespace + 'mainColor'] || '#f7bc38';
     
+        // Set domain max
         var maxValue = parseFloat(config[this.getPropertyNamespaceInfo().propertyNamespace + 'maxValue']) || 100;
 
         // Set height and width

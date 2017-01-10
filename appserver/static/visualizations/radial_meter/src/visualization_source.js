@@ -18,7 +18,6 @@ define([
         initialize: function() {
             // Save this.$el for convenience
             this.$el = $(this.el);
-            console.log("Test me. Init");
             // Add a css selector class
             this.$el.addClass('splunk-radial-meter');
         },

@@ -35,3 +35,6 @@ export = system
 
 [visualizations/radial_meter]
 export = system
+
+[visualizations/directed_graph]
+export = system
