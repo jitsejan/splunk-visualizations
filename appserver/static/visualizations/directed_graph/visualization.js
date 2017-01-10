@@ -97,9 +97,8 @@ define(["api/SplunkVisualizationBase","api/SplunkVisualizationUtils"], function(
 	                console.log("Link", link)
 	                links.push(link);
 	            });
-	            
-	            console.log("D3 formatted data", {nodes: d3.values(nodes), links: links});
-	            return {nodes: d3.values(nodes), links: links};
+	            console.log('nodes', nodes);
+	            return {nodes: nodes, links: links};
 	        },
 	  
 	        updateView: function(data, config) {
@@ -112,15 +111,22 @@ define(["api/SplunkVisualizationBase","api/SplunkVisualizationUtils"], function(
 	            // Clear the div
 	            this.$el.empty();
 	            
-	            var that = this;
-	            var height = this.$el.height();
-	            var width = this.$el.width();
+	            var height = 500;
+	            var width = 600;
 
 	            var mainColor = config[this.getPropertyNamespaceInfo().propertyNamespace + 'mainColor'] || '#f7bc38';
 
+	            var force = d3.layout.force()
+	                                .nodes(d3.values(data.nodes))
+	                                .links(data.links)
+	                                .size([width-10, height-10])
+	                                .linkDistance(60)
+	                                .charge(-375)
+	                                .on("tick", tick)
+	                                .start();
+
 	            // Create the canvas
-				var svg = d3
-							.select(this.el)
+				var svg = d3.select(this.el)
 							.append('svg')
 								.style('width', width + 'px')
 								.style('height', height + 'px')
@@ -133,75 +139,67 @@ define(["api/SplunkVisualizationBase","api/SplunkVisualizationUtils"], function(
 						.attr('height', height)
 						.attr('fill', mainColor);
 
+	            // build the arrow.
+	            svg.append("svg:defs").selectAll("marker")
+	                .data(["end"])
+	                .enter().append("svg:marker")
+	                .attr("id", String)
+	                .attr("viewBox", "0 -5 10 10")
+	                .attr("refX", 15)
+	                .attr("refY", -1.5)
+	                .attr("markerWidth", 6)
+	                .attr("markerHeight", 6)
+	                .attr("orient", "auto")
+	                .append("svg:path")
+	                .attr("d", "M0,-5L10,0L0,5");
+
+	            // add the links and the arrows
+	            var path = svg.append("svg:g").selectAll("path")
+	                .data(force.links())
+	                .enter().append("svg:path")
+	                .attr("class", "link")
+	                .attr("marker-end", "url(#end)");
+
+	            // define the nodes
+	            var node = svg.selectAll(".node")
+	                .data(force.nodes())
+	            .enter().append("g")
+	                .attr("class", "node")
+	                .call(force.drag);
+
+	            // add the nodes
+	            node.append("circle")
+	                .attr("r", 5);
+
+	            // add the text 
+	            node.append("text")
+	                .attr("x", 12)
+	                .attr("dy", ".35em")
+	                .text(function(d) { return d.name; });
+
+	            // add the curvy lines
+	            function tick() {
+	                path.attr("d", function(d) {
+	                    var dx = d.target.x - d.source.x,
+	                        dy = d.target.y - d.source.y,
+	                        dr = Math.sqrt(dx * dx + dy * dy);
+	                    return "M" + 
+	                        d.source.x + "," + 
+	                        d.source.y + "A" + 
+	                        dr + "," + dr + " 0 0,1 " + 
+	                        d.target.x + "," + 
+	                        d.target.y;
+	                });
+
+	                node
+	                    .attr("transform", function(d) { 
+	                        return "translate(" + d.x + "," + d.y + ")"; });
+	            }
+
 				// Add a g and make it the active svg component
 				svg = svg.append('g');
 
-	            
-	        
-	            // // Set domain max
-	            // var maxValue = parseFloat(config[this.getPropertyNamespaceInfo().propertyNamespace + 'maxValue']) || 100;
-
-	            // // Set height and width
-	            // var height = 220;
-	            // var width = 220;
-	    
-	            // // Create a radial scale representing part of a circle
-	            // var scale = d3.scale.linear()
-	            //     .domain([0, maxValue])
-	            //     .range([ - Math.PI * .75, Math.PI * .75])
-	            //     .clamp(true);
-	    
-	            // // Create parameterized arc definition
-	            // var arc = d3.svg.arc()
-	            //     .startAngle(function(d){
-	            //         return scale(0);
-	            //     })
-	            //     .endAngle(function(d){
-	            //         return scale(d)
-	            //     })
-	            //     .innerRadius(70)
-	            //     .outerRadius(85);
-
-	            // // SVG setup
-	            // var svg  = d3.select(this.el).append('svg')
-	            //     .attr('width', width)
-	            //     .attr('height', height)
-	            //     .style('background', 'white')
-	            //     .append('g')
-	            //     .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')');
-
-	            // // Background arc
-	            // svg.append('path')
-	            //     .datum(maxValue)
-	            //     .attr('d', arc)
-	            //     .style('fill', 'lightgray');
-
-	            // // Fill arc
-	            // svg.append('path')
-	            //     .datum(datum)
-	            //     .attr('d', arc)
-	            //     .style('fill', mainColor);
-
-	            // // Text
-	            // svg.append('text')
-	            //     .datum(datum)
-	            //     .attr('class', 'meter-center-text')
-	            //     .style('text-anchor', 'middle')
-	            //     .style('fill', mainColor)
-	            //     .text(function(d){
-	            //         return parseFloat(d);
-	            //     })
-	            //     .attr('transform', 'translate(' + 0 + ',' + 20 + ')');
-	            
-	            
-	            // Do this when the user scrolls (zoom effect)
-				function zoomed() {
-					var eventType = d3.event.sourceEvent || 'dblclick';
-					if(eventType != 'dblclick'){
-					svg
-	    				.attr('transform', 'translate(' + d3.event.transform.x + ',' + d3.event.transform.y + ')scale(' + d3.event.transform.k + ')');
-	    			}
-				}
+	                 
 	        }
 	    });
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
