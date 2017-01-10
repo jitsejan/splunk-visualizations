@@ -59,74 +59,104 @@ define([
   
         updateView: function(data, config) {
              
-        // Return if no data
-        if (!data) {
-            return;
-        }
+            // Check for an empty data object
+			if(data.nodes.length < 1){
+				return false;
+			}
        
-        // Assign datum to the data object returned from formatData
-        var datum = data;
+            // Clear the div
+            this.$el.empty();
+            
+            var that = this;
+            var height = this.$el.height();
+            var width = this.$el.width();
 
-        // Clear the div
-        this.$el.empty();
- 
-        var mainColor = config[this.getPropertyNamespaceInfo().propertyNamespace + 'mainColor'] || '#f7bc38';
+            var mainColor = config[this.getPropertyNamespaceInfo().propertyNamespace + 'mainColor'] || '#f7bc38';
+
+            // Create the canvas
+			var svg = d3
+						.select(this.el)
+						.append('svg')
+							.style('width', width + 'px')
+							.style('height', height + 'px')
+							.style('margin', '0 auto');                            ;
+
+			// Add a background rectangle
+			svg
+				.append('rect')
+					.attr('width', width)
+					.attr('height', height)
+					.attr('fill', mainColor);
+
+			// Add a g and make it the active svg component
+			svg = svg.append('g');
+
+            
+        
+            // // Set domain max
+            // var maxValue = parseFloat(config[this.getPropertyNamespaceInfo().propertyNamespace + 'maxValue']) || 100;
+
+            // // Set height and width
+            // var height = 220;
+            // var width = 220;
     
-        // Set domain max
-        var maxValue = parseFloat(config[this.getPropertyNamespaceInfo().propertyNamespace + 'maxValue']) || 100;
+            // // Create a radial scale representing part of a circle
+            // var scale = d3.scale.linear()
+            //     .domain([0, maxValue])
+            //     .range([ - Math.PI * .75, Math.PI * .75])
+            //     .clamp(true);
+    
+            // // Create parameterized arc definition
+            // var arc = d3.svg.arc()
+            //     .startAngle(function(d){
+            //         return scale(0);
+            //     })
+            //     .endAngle(function(d){
+            //         return scale(d)
+            //     })
+            //     .innerRadius(70)
+            //     .outerRadius(85);
 
-        // Set height and width
-        var height = 220;
-        var width = 220;
-  
-        // Create a radial scale representing part of a circle
-        var scale = d3.scale.linear()
-            .domain([0, maxValue])
-            .range([ - Math.PI * .75, Math.PI * .75])
-            .clamp(true);
-  
-        // Create parameterized arc definition
-        var arc = d3.svg.arc()
-            .startAngle(function(d){
-                return scale(0);
-            })
-            .endAngle(function(d){
-                return scale(d)
-            })
-            .innerRadius(70)
-            .outerRadius(85);
+            // // SVG setup
+            // var svg  = d3.select(this.el).append('svg')
+            //     .attr('width', width)
+            //     .attr('height', height)
+            //     .style('background', 'white')
+            //     .append('g')
+            //     .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')');
 
-        // SVG setup
-        var svg  = d3.select(this.el).append('svg')
-            .attr('width', width)
-            .attr('height', height)
-            .style('background', 'white')
-            .append('g')
-            .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')');
+            // // Background arc
+            // svg.append('path')
+            //     .datum(maxValue)
+            //     .attr('d', arc)
+            //     .style('fill', 'lightgray');
 
-        // Background arc
-        svg.append('path')
-            .datum(maxValue)
-            .attr('d', arc)
-            .style('fill', 'lightgray');
+            // // Fill arc
+            // svg.append('path')
+            //     .datum(datum)
+            //     .attr('d', arc)
+            //     .style('fill', mainColor);
 
-        // Fill arc
-        svg.append('path')
-            .datum(datum)
-            .attr('d', arc)
-            .style('fill', mainColor);
-
-        // Text
-        svg.append('text')
-            .datum(datum)
-            .attr('class', 'meter-center-text')
-            .style('text-anchor', 'middle')
-            .style('fill', mainColor)
-            .text(function(d){
-                return parseFloat(d);
-            })
-            .attr('transform', 'translate(' + 0 + ',' + 20 + ')');
-
+            // // Text
+            // svg.append('text')
+            //     .datum(datum)
+            //     .attr('class', 'meter-center-text')
+            //     .style('text-anchor', 'middle')
+            //     .style('fill', mainColor)
+            //     .text(function(d){
+            //         return parseFloat(d);
+            //     })
+            //     .attr('transform', 'translate(' + 0 + ',' + 20 + ')');
+            
+            
+            // Do this when the user scrolls (zoom effect)
+			function zoomed() {
+				var eventType = d3.event.sourceEvent || 'dblclick';
+				if(eventType != 'dblclick'){
+				svg
+    				.attr('transform', 'translate(' + d3.event.transform.x + ',' + d3.event.transform.y + ')scale(' + d3.event.transform.k + ')');
+    			}
+			}
         }
     });
 });
