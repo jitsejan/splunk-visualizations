@@ -66,8 +66,8 @@ define([
             // Clear the div
             this.$el.empty();
             
-            var height = 500;
-            var width = 600;
+            var width = 1400;
+            var height = 800;
 
             var mainColor = config[this.getPropertyNamespaceInfo().propertyNamespace + 'mainColor'] || '#f7bc38';
 
@@ -76,7 +76,7 @@ define([
                                 .links(data.links)
                                 .size([width-10, height-10])
                                 .linkDistance(60)
-                                .charge(-375)
+                                .charge(-300)
                                 .on("tick", tick)
                                 .start();
 
@@ -85,54 +85,58 @@ define([
 						.append('svg')
 							.style('width', width + 'px')
 							.style('height', height + 'px')
-							.style('margin', '0 auto');                            ;
+							.style('margin', '0 auto');
 
-			// Add a background rectangle
-			svg
-				.append('rect')
-					.attr('width', width)
-					.attr('height', height)
-					.attr('fill', mainColor);
-
-            // build the arrow.
-            svg.append("svg:defs").selectAll("marker")
+            // Add a g and make it the active svg component
+			svg = svg.append('g');
+			
+            // Build the arrow.
+            svg.append("svg:defs")
+                .selectAll("marker")
                 .data(["end"])
-                .enter().append("svg:marker")
-                .attr("id", String)
-                .attr("viewBox", "0 -5 10 10")
-                .attr("refX", 15)
-                .attr("refY", -1.5)
-                .attr("markerWidth", 6)
-                .attr("markerHeight", 6)
-                .attr("orient", "auto")
-                .append("svg:path")
-                .attr("d", "M0,-5L10,0L0,5");
+                .enter()
+                    .append("svg:marker")
+                        .attr("id", String)
+                        .attr("viewBox", "0 -5 10 10")
+                        .attr("refX", 15)
+                        .attr("refY", -1.5)
+                        .attr("markerWidth", 6)
+                        .attr("markerHeight", 6)
+                        .attr("orient", "auto")
+                        .append("svg:path")
+                            .attr('d', 'M 0 0 L 10 5 L 0 10 z');
 
-            // add the links and the arrows
-            var path = svg.append("svg:g").selectAll("path")
-                .data(force.links())
-                .enter().append("svg:path")
-                .attr("class", "link")
-                .attr("marker-end", "url(#end)");
+            // Add the links and the arrows
+            var path = svg.append("svg:g")
+                            .selectAll("path")
+                            .data(force.links())
+                            .enter()
+                                .append("svg:path")
+                                    .attr("class", "link")
+                                    .attr("marker-end", "url(#end)");
 
-            // define the nodes
+            // Define the nodes
             var node = svg.selectAll(".node")
                 .data(force.nodes())
-            .enter().append("g")
+                .enter().append("g")
                 .attr("class", "node")
                 .call(force.drag);
 
-            // add the nodes
+            // Add the nodes
             node.append("circle")
                 .attr("r", 5);
 
-            // add the text 
+            // Add the text 
             node.append("text")
                 .attr("x", 12)
                 .attr("dy", ".35em")
                 .text(function(d) { return d.name; });
+            
+            node
+	  			.append('title')
+	  			.text(function(d) { return d.name; });
 
-            // add the curvy lines
+            // Add the curvy lines
             function tick() {
                 path.attr("d", function(d) {
                     var dx = d.target.x - d.source.x,
@@ -151,10 +155,6 @@ define([
                         return "translate(" + d.x + "," + d.y + ")"; });
             }
 
-			// Add a g and make it the active svg component
-			svg = svg.append('g');
-
-                 
         }
     });
 });
