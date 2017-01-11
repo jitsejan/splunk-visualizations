@@ -89,6 +89,7 @@ define(["api/SplunkVisualizationBase","api/SplunkVisualizationUtils"], function(
 	                var sourceName = row[0];
 	                var targetName = row[1];
 	                var categoryName = row[2];
+	                var nodeSize = row[3] || 5;
 	                
 	                if($.inArray(sourceName, uniqueNames) == -1){
 	                    nodes.push({'id': counter, 'name': sourceName, 'group': categoryName});
@@ -97,7 +98,7 @@ define(["api/SplunkVisualizationBase","api/SplunkVisualizationUtils"], function(
 	                }
 
 	                if($.inArray(targetName, uniqueNames) == -1){
-	                    nodes.push({'id': counter, 'name': targetName, 'group': categoryName});
+	                    nodes.push({'id': counter, 'name': targetName, 'group': categoryName, 'size': nodeSize});
 	                    uniqueNames.push(targetName);
 	                    counter = counter + 1;
 	                }
@@ -162,8 +163,8 @@ define(["api/SplunkVisualizationBase","api/SplunkVisualizationUtils"], function(
 	                .selectAll("circle")
 	                .data(data.nodes)
 	                .enter().append("circle")
-	                            .attr("r", 5)
-	                            .attr("fill", "00ff00")
+	                            .attr("r", function(d) {return 5 + (parseInt(d.size)/10) || 5;})
+	                            .attr("fill", function(d) { return color(d.group); })
 	                            .call(d3.drag()
 	                                .on("start", dragstarted)
 	                                .on("drag", dragged)
