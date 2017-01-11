@@ -2,21 +2,12 @@
  * CSS rules for visualization.
  * Class namespacing is good practice.
  */
-
-path.link {
-  fill: none;
-  stroke: #666;
-  stroke-width: 1.5px;
+.links line {
+  stroke: #999;
+  stroke-opacity: 0.6;
 }
 
-circle {
-  fill: #ccc;
+.nodes circle {
   stroke: #fff;
   stroke-width: 1.5px;
-}
-
-text {
-  fill: #000;
-  font: 10px sans-serif;
-  pointer-events: none;
 }

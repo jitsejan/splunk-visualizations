@@ -30,29 +30,46 @@ define([
             });
         },
 
-        formatData: function(data) {
-            console.log("data.fields", data.fields);
-            
-            var nodes = {};
-            var links = [];
+        formatData: function(data, config) {
             
             var fields = data.fields;
 			var rows = data.rows;
+            
+            var nodes = [];
+            var links = [];
+            var counter = 0;
+            var uniqueNames = [];
 
             rows.forEach( function(row) {
                 var sourceName = row[0];
                 var targetName = row[1];
                 var categoryName = row[2];
-                var link = {}
-                link.source = nodes[sourceName] || 
-                    (nodes[sourceName] = {name: sourceName, group: categoryName, value: 0});
-                link.target = nodes[targetName] || 
-                    (nodes[targetName] = {name: targetName, group: categoryName, value: 0});
-                link.value = +link.value;
-                console.log("Link", link)
-                links.push(link);
+                
+                if($.inArray(sourceName, uniqueNames) == -1){
+                    nodes.push({'id': counter, 'name': sourceName, 'group': categoryName});
+                    uniqueNames.push(sourceName);
+                    counter = counter + 1;
+                }
+
+                if($.inArray(targetName, uniqueNames) == -1){
+                    nodes.push({'id': counter, 'name': targetName, 'group': categoryName});
+                    uniqueNames.push(targetName);
+                    counter = counter + 1;
+                }
             });
+
+			rows.forEach( function(row, i) {
+				link = {
+					'source': $.grep(nodes, function(element, index){ return element.name === rows[i][0]; })[0]['id'],
+					'target': $.grep(nodes, function(element, index){ return element.name === rows[i][1]; })[0]['id'],
+					'weight': 1
+				};
+				links.push(link);
+            });
+
             console.log('nodes', nodes);
+            console.log('links', links);
+
             return {nodes: nodes, links: links};
         },
   
@@ -68,18 +85,7 @@ define([
             
             var width = 1400;
             var height = 800;
-
-            var mainColor = config[this.getPropertyNamespaceInfo().propertyNamespace + 'mainColor'] || '#f7bc38';
-
-            var force = d3.layout.force()
-                                .nodes(d3.values(data.nodes))
-                                .links(data.links)
-                                .size([width-10, height-10])
-                                .linkDistance(60)
-                                .charge(-300)
-                                .on("tick", tick)
-                                .start();
-
+            
             // Create the canvas
 			var svg = d3.select(this.el)
 						.append('svg')
@@ -89,72 +95,75 @@ define([
 
             // Add a g and make it the active svg component
 			svg = svg.append('g');
-			
-            // Build the arrow.
-            svg.append("svg:defs")
-                .selectAll("marker")
-                .data(["end"])
-                .enter()
-                    .append("svg:marker")
-                        .attr("id", String)
-                        .attr("viewBox", "0 -5 10 10")
-                        .attr("refX", 15)
-                        .attr("refY", -1.5)
-                        .attr("markerWidth", 6)
-                        .attr("markerHeight", 6)
-                        .attr("orient", "auto")
-                        .append("svg:path")
-                            .attr('d', 'M 0 0 L 10 5 L 0 10 z');
 
-            // Add the links and the arrows
-            var path = svg.append("svg:g")
-                            .selectAll("path")
-                            .data(force.links())
-                            .enter()
-                                .append("svg:path")
-                                    .attr("class", "link")
-                                    .attr("marker-end", "url(#end)");
+            var color = d3.scaleOrdinal(d3.schemeCategory20);
 
-            // Define the nodes
-            var node = svg.selectAll(".node")
-                .data(force.nodes())
-                .enter().append("g")
-                .attr("class", "node")
-                .call(force.drag);
-
-            // Add the nodes
-            node.append("circle")
-                .attr("r", 5);
-
-            // Add the text 
-            node.append("text")
-                .attr("x", 12)
-                .attr("dy", ".35em")
-                .text(function(d) { return d.name; });
+            var simulation = d3.forceSimulation()
+                .force("link", d3.forceLink().distance(10).strength(0.5))
+                .force("charge", d3.forceManyBody())
+                .force("center", d3.forceCenter(width / 2, height / 2));
             
-            node
+            var link = svg.append("g")
+                .attr("class", "links")
+                .selectAll("line")
+                .data(data.links)
+                .enter().append('line')
+                            .attr('stroke', "ff00ff")
+                            .attr('fill', 'red')
+                            .attr('stroke-width', 2);
+            
+            var node = svg.append("g")
+                .attr("class", "nodes")
+                .selectAll("circle")
+                .data(data.nodes)
+                .enter().append("circle")
+                            .attr("r", 5)
+                            .attr("fill", "00ff00")
+                            .call(d3.drag()
+                                .on("start", dragstarted)
+                                .on("drag", dragged)
+                                .on("end", dragended));
+
+            // Add a title to the nodes (hover to show)
+	  		node
 	  			.append('title')
 	  			.text(function(d) { return d.name; });
 
-            // Add the curvy lines
-            function tick() {
-                path.attr("d", function(d) {
-                    var dx = d.target.x - d.source.x,
-                        dy = d.target.y - d.source.y,
-                        dr = Math.sqrt(dx * dx + dy * dy);
-                    return "M" + 
-                        d.source.x + "," + 
-                        d.source.y + "A" + 
-                        dr + "," + dr + " 0 0,1 " + 
-                        d.target.x + "," + 
-                        d.target.y;
-                });
+            simulation
+                .nodes(data.nodes)
+                .on("tick", ticked);
+
+            simulation.force("link")
+                .links(data.links);
+
+            function ticked() {
+                link
+                    .attr("x1", function(d) { return d.source.x; })
+                    .attr("y1", function(d) { return d.source.y; })
+                    .attr("x2", function(d) { return d.target.x; })
+                    .attr("y2", function(d) { return d.target.y; });
 
                 node
-                    .attr("transform", function(d) { 
-                        return "translate(" + d.x + "," + d.y + ")"; });
+                    .attr("cx", function(d) { return d.x; })
+                    .attr("cy", function(d) { return d.y; });
             }
 
-        }
+            function dragstarted(d) {
+                if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+                d.fx = d.x;
+                d.fy = d.y;
+            }
+
+            function dragged(d) {
+                d.fx = d3.event.x;
+                d.fy = d3.event.y;
+            }
+
+            function dragended(d) {
+                if (!d3.event.active) simulation.alphaTarget(0);
+                d.fx = null;
+                d.fy = null;
+            }
+       }
     });
 });

@@ -1,4 +1,4 @@
-<dashboard script="autodiscover.js">
+<form script="autodiscover.js">
   <label>Artists influences</label>
   <fieldset autorun="true" submitButton="false">
     <input type="dropdown" token="amount">
@@ -63,4 +63,33 @@
       </table>
     </panel>
   </row>
-</dashboard>
+  <row>
+    <panel>
+      <title>Custom directed graph</title>
+      <viz type="jitsejan.directed_graph">
+        <search>
+          <query>index=jitsejan source="*theartstory_artists.csv" 
+| makemv delim="," influences_on_artists 
+| mvexpand influences_on_artists 
+| eval influences_on_artists=trim(influences_on_artists)
+| search    [ search index=jitsejan source="*theartstory_artists.csv" 
+    | makemv delim="," influences_on_artists 
+    | mvexpand influences_on_artists 
+    | eval influences_on_artists=trim(influences_on_artists) 
+    | stats count by influences_on_artists 
+    | sort -count 
+    | return $form.amount$ influences_on_artists] 
+| makemv delim="," movements
+| mvexpand movements
+| table name influences_on_artists movements
+| dedup name influences_on_artists
+| rename name as Artist influences_on_artists as "Influenced by" movements as Movement</query>
+          <sampleRatio>1</sampleRatio>
+        </search>
+        <option name="height">774</option>
+        <option name="jitsejan.directed_graph.mainColor">#6db7c6</option>
+        <option name="jitsejan.directed_graph.maxValue">10000000</option>
+      </viz>
+    </panel>
+  </row>
+</form>

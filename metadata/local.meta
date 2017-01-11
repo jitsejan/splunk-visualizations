@@ -44,8 +44,8 @@ modtime = 1483839798.425584000
 [views/art_story_influences]
 export = none
 owner = admin
-version = 6.5.1
-modtime = 1483646114.662920000
+version = 6.5.0
+modtime = 1484066723.568958400
 
 [html/art_story_artists_html]
 owner = admin
