@@ -15,22 +15,13 @@
     font: 12px sans-serif;	
 }
 
-.miniItem0 {
-    fill: darksalmon;
-    stroke-width: 6;	
+.miniItem{
+    fill: gray;
+    stroke-width: 3;
+    fill-opacity: .365;
+    
 }
 
-.miniItem1 {
-    fill: darkolivegreen;
-    fill-opacity: .7;
-    stroke-width: 6;	
-}
-
-.miniItem2 {
-    fill: slategray;
-    fill-opacity: .7;
-    stroke-width: 6;	
-}
 
 .brush .extent {
     stroke: gray;

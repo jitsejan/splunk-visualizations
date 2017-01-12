@@ -84,8 +84,8 @@ define(["api/SplunkVisualizationBase","api/SplunkVisualizationUtils"], function(
 	            var items = [];
 	            var uniqueNames = [];
 	            var counter = 0;
-	            var timeBegin = 1700;
-	            var timeEnd = 2017;
+	            var timeBegin = 2017;
+	            var timeEnd = 0;
 
 	            // Define the lanes
 	            rows.forEach( function(row, i) {
@@ -102,8 +102,16 @@ define(["api/SplunkVisualizationBase","api/SplunkVisualizationUtils"], function(
 	                    'lane': $.grep(lanes, function(element, index){ return element.name === rows[i][0]; })[0]['id'],
 	                    'start': parseInt(row[1]),
 	                    'end': parseInt(row[2]),
+	                    'duration': parseInt(row[3]),
+	                    'title': (row[4] || $.grep(lanes, function(element, index){ return element.name === rows[i][0]; })[0]['name']),
 						'id': counter
 					};
+	                if(item.start < timeBegin){
+	                    timeBegin = item.start;
+	                }
+	                if(item.end > timeEnd){
+	                    timeEnd = item.end;
+	                }
 					items.push(item);
 	                counter = counter + 1;
 	            });
@@ -127,11 +135,11 @@ define(["api/SplunkVisualizationBase","api/SplunkVisualizationUtils"], function(
 	            // Clear the div
 	            this.$el.empty();
 	            
-	            var margin = {top: 20, right: 20, bottom: 110, left: 100};
-				var margin2 = {top: 430, right: 20, bottom: 30, left: 90};
-	            var width = 960 - margin.left - margin.right;
-	            var height = 500 - margin.top - margin.bottom;
-				var height2 = 500 - margin2.top - margin2.bottom;
+	            var margin = {top: 20, right: 40, bottom: 110, left: 150};
+				var margin2 = {top: 730, right: 40, bottom: 30, left: 150};
+	            var width = 1400 - margin.left - margin.right;
+	            var height = 800 - margin.top - margin.bottom;
+				var height2 = 800 - margin2.top - margin2.bottom;
 	            
 	            console.log('width', width);
 	            console.log('height', height);
@@ -225,7 +233,6 @@ define(["api/SplunkVisualizationBase","api/SplunkVisualizationUtils"], function(
 	                .extent([[0, 0], [width, height2]])
 	                .on("brush", display);
 
-
 	            mini.append("g")
 	                .attr("class", "brush")
 	                .call(brush)
@@ -234,11 +241,20 @@ define(["api/SplunkVisualizationBase","api/SplunkVisualizationUtils"], function(
 	                .attr("y", 1)
 	                .attr("height", height2 - 1);
 
+	            var xAxis = d3.axisBottom(x)
+	                .tickFormat(function(d) { return d; });
+
+	            main.append("g")
+	                .attr("class", "axis axis--x")
+	                .attr("transform", "translate(0," + height + ")")
+	                .call(xAxis);
+
 	            display();
 	            
 	            function display() {
 	                var visItems = data.items;
 	                var rects, labels;
+	                var minExtent = 0;
 
 	                rects = itemRects.selectAll("rect")
 				        .data(visItems, function(d) { return d.id; })
@@ -246,25 +262,27 @@ define(["api/SplunkVisualizationBase","api/SplunkVisualizationUtils"], function(
 	                    .attr("width", function(d) {return x1(d.end) - x1(d.start);});
 	                
 	                rects.enter().append("rect")
-	                    .attr("class", function(d) {return "miniItem" + d.lane;})
+	                    .attr("id", function(d) {return "miniItem" + d.lane;})
+	                    .attr("class", "miniItem")
 	                    .attr("x", function(d) {return x1(d.start);})
 	                    .attr("y", function(d) {return y1(d.lane) + .5*data.lanes.length;})
 	                    .attr("width", function(d) {return x1(d.end) - x1(d.start);})
-	                    .attr("height", function(d) {return .7 * y1(1);})
-	                    .attr("title", function(d) {return d.name;});
+	                    .attr("height", function(d) {return .7 * y1(1);});
 
 	                rects.exit().remove();
 
+	                labels = itemRects.selectAll("text")
+	                    .data(visItems, function (d) { return d.id; })
+	                    .attr("x", function(d) {return x1(Math.max(d.start, minExtent) + 2);});
 
+	                labels.enter().append("text")
+	                    .text(function(d) {return d.title;})
+	                    .attr("x", function(d) {return x1(Math.max(d.start, minExtent));})
+	                    .attr("y", function(d) {return y1(d.lane + .5);})
+	                    .attr("text-anchor", "start");
 
-	                // var extent = brush.extent();
-	                // console.log('extent', extent);
-	                // var minExtent = brush.extent()[0];
-					// var maxExtent = brush.extent()[1];
-	                // console.log('minExtent', minExtent);
-	                // console.log('maxExtent', maxExtent);
-					// var visItems = data.items.filter(function(d) {return d.start < maxExtent && d.end > minExtent;});
-	                // console.log('visItems', visItems);
+	                labels.exit().remove();
+
 	            }
 	       }
 	    });

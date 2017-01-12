@@ -29,27 +29,16 @@
       <table id="table2">
         <search>
           <query>index=jitsejan source="*theartstory_artists.csv" 
-| eval leftbracket=replace(influence_on_artists,"\[","") 
-| eval influence_on_artists=replace(leftbracket,"\]","") 
-| makemv delim="," influence_on_artists 
-| mvexpand influence_on_artists 
-| eval influence_on_artists=trim(influence_on_artists)
+| mvexpand influences_on_artists 
 | search    [ search index=jitsejan source="*theartstory_artists.csv" 
-    | eval leftbracket=replace(influence_on_artists,"\[","") 
-    | eval influence_on_artists=replace(leftbracket,"\]","") 
-    | makemv delim="," influence_on_artists 
     | mvexpand influence_on_artists 
-    | eval influence_on_artists=trim(influence_on_artists) 
-    | stats count by influence_on_artists 
+    | stats count by influences_on_artists 
     | sort -count 
-    | return $form.amount$ influence_on_artists] 
-| eval leftbracket=replace(movement,"\[","") 
-| eval movement=replace(leftbracket,"\]","") 
-| makemv delim="," movement
+    | return $form.amount$ influences_on_artists] 
 | mvexpand movement
-| table name influence_on_artists movement
-| dedup name influence_on_artists
-| rename name as Artist influence_on_artists as "Influenced by" movement as Movement</query>
+| table name influences_on_artists movement
+| dedup name influences_on_artists
+| rename name as Artist influences_on_artists as "Influenced by" movement as Movement</query>
           <earliest>0</earliest>
           <sampleRatio>1</sampleRatio>
         </search>
@@ -69,24 +58,18 @@
       <viz type="jitsejan.directed_graph">
         <search>
           <query>index=jitsejan source="*theartstory_artists.csv" 
-| makemv delim="," influences_on_artists 
 | mvexpand influences_on_artists 
-| eval influences_on_artists=trim(influences_on_artists) 
 | search 
     [ search index=jitsejan source="*theartstory_artists.csv" 
-    | makemv delim="," influences_on_artists 
     | mvexpand influences_on_artists 
-    | eval influences_on_artists=trim(influences_on_artists) 
     | stats count by influences_on_artists 
     | sort -count 
     | return $form.amount$ influences_on_artists] 
-| makemv delim="," movements 
 | mvexpand movements 
 | table name influences_on_artists movements 
 | dedup name influences_on_artists 
 | join influences_on_artists 
     [ search index=jitsejan source="*theartstory_artists.csv" 
-    | makemv delim="," influences_on_artists 
     | mvexpand influences_on_artists 
     | stats count by influences_on_artists] 
 | rename name as Artist influences_on_artists as "Influenced by" movements as Movement count as Amount</query>
