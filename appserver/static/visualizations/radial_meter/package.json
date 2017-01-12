@@ -1,7 +1,7 @@
 {
   "name": "radial_meter",
   "version": "1.0.0",
-  "description": "Visualization app template. Put a description here.",
+  "description": "Radial meter",
   "main": "visualization.js",
   "scripts": {
     "build": "node ./node_modules/webpack/bin/webpack.js",

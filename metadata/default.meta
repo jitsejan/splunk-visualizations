@@ -38,3 +38,6 @@ export = system
 
 [visualizations/directed_graph]
 export = system
+
+[visualizations/swim_lanes]
+export = system

@@ -1,0 +1,22 @@
+{
+  "name": "swim_lanes",
+  "version": "1.0.0",
+  "description": "Swim lanes",
+  "main": "visualization.js",
+  "scripts": {
+    "build": "node ./node_modules/webpack/bin/webpack.js",
+    "devbuild": "node ./node_modules/webpack/bin/webpack.js --progress",
+    "watch": "node ./node_modules/webpack/bin/webpack.js -d --watch --progress"
+  },
+  "author": "Splunk",
+  "license": "MIT",
+  "devDependencies": {
+    "webpack": "^1.12.6"
+  },
+  "dependencies": {
+    "d3": "^4.4.1",
+    "jquery": "^2.2.4",
+    "underscore": "^1.8.3",
+    "webpack": "^1.14.0"
+  }
+}
