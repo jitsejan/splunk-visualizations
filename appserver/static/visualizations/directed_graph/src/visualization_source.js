@@ -92,7 +92,8 @@ define([
 						.append('svg')
 							.style('width', width + 'px')
 							.style('height', height + 'px')
-							.style('margin', '0 auto');
+							.style('margin', '0 auto')
+                            .call(d3.zoom().on('zoom', zoomed));
 
             // Add a g and make it the active svg component
 			svg = svg.append('g');
@@ -100,10 +101,27 @@ define([
             var color = d3.scaleOrdinal(d3.schemeCategory20);
 
             var simulation = d3.forceSimulation()
-                .force("link", d3.forceLink().distance(10).strength(0.5))
+                .force("link", d3.forceLink().distance(10).strength(0.2))
                 .force("charge", d3.forceManyBody())
                 .force("center", d3.forceCenter(width / 2, height / 2));
             
+            // build the arrow.
+            svg.append("svg:defs")
+                .selectAll("marker")
+                .data(["end"])      // Different link/path types can be defined here
+            .enter().append("svg:marker")    // This section adds in the arrows
+                .attr("id", String)
+                .attr("viewBox", "0 -5 10 10")
+                .attr("refX", 25)
+                .attr("refY", 0)
+                .attr("markerWidth", 6)
+                .attr("markerHeight", 6)
+                .attr("orient", "auto")
+            .append("svg:path")
+                .attr('d', 'M 0, -3 L 6, 0 L 0, 3')
+                .attr('fill', '#ccc')
+                .attr('stroke','#ccc');
+
             var link = svg.append("g")
                 .attr("class", "links")
                 .selectAll("line")
@@ -111,7 +129,8 @@ define([
                 .enter().append('line')
                             .attr('stroke', "ff00ff")
                             .attr('fill', 'red')
-                            .attr('stroke-width', 2);
+                            .attr("marker-end", "url(#end)")
+                            .attr('stroke-width', 1);
             
             var node = svg.append("g")
                 .attr("class", "nodes")
@@ -124,9 +143,8 @@ define([
                                 .on("start", dragstarted)
                                 .on("drag", dragged)
                                 .on("end", dragended));
-
-            // Add a title to the nodes (hover to show)
-	  		node
+            
+            node
 	  			.append('title')
 	  			.text(function(d) { return d.name; });
 
@@ -147,24 +165,38 @@ define([
                 node
                     .attr("cx", function(d) { return d.x; })
                     .attr("cy", function(d) { return d.y; });
+
+                
             }
 
             function dragstarted(d) {
                 if (!d3.event.active) simulation.alphaTarget(0.3).restart();
-                d.fx = d.x;
-                d.fy = d.y;
+                d3.event.subject.fx = d3.event.subject.x;
+				d3.event.subject.fy = d3.event.subject.y;
             }
 
             function dragged(d) {
-                d.fx = d3.event.x;
-                d.fy = d3.event.y;
+                d3.event.subject.fx = d3.event.x;
+				d3.event.subject.fy = d3.event.y;
             }
 
             function dragended(d) {
                 if (!d3.event.active) simulation.alphaTarget(0);
-                d.fx = null;
-                d.fy = null;
             }
+
+            function dblclick(d) {
+				d3.event.preventDefault();
+				d.fx = null;
+				d.fy = null;
+			}
+
+			function zoomed() {
+				var eventType = d3.event.sourceEvent || 'dblclick';
+				if(eventType != 'dblclick'){
+				svg
+    				.attr('transform', 'translate(' + d3.event.transform.x + ',' + d3.event.transform.y + ')scale(' + d3.event.transform.k + ')');
+    			}
+			}
        }
     });
 });
