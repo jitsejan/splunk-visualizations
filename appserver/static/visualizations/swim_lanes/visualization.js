@@ -110,7 +110,8 @@ define(["api/SplunkVisualizationBase","api/SplunkVisualizationUtils"], function(
 
 	            
 				
-
+	            console.log('timeBegin', timeBegin);
+	            console.log('timeEnd', timeEnd);
 	            console.log('lanes', lanes);
 	            console.log('items', items);
 	            return {lanes: lanes, items: items, timeBegin: timeBegin, timeEnd: timeEnd};
@@ -126,31 +127,34 @@ define(["api/SplunkVisualizationBase","api/SplunkVisualizationUtils"], function(
 	            // Clear the div
 	            this.$el.empty();
 	            
-	            var m = [20, 15, 15, 120], //top right bottom left
-				w = 960 - m[1] - m[3],
-				h = 500 - m[0] - m[2],
-				miniHeight = data.lanes.length * 12 + 50,
-				mainHeight = h - miniHeight - 50;
+	            var margin = {top: 20, right: 20, bottom: 110, left: 100};
+				var margin2 = {top: 430, right: 20, bottom: 30, left: 90};
+	            var width = 960 - margin.left - margin.right;
+	            var height = 500 - margin.top - margin.bottom;
+				var height2 = 500 - margin2.top - margin2.bottom;
 	            
+	            console.log('width', width);
+	            console.log('height', height);
 	            // Create the canvas
 				var svg = d3.select(this.el)
 							.append("svg")
-	                        .attr("width", w + m[1] + m[3])
-	                        .attr("height", h + m[0] + m[2])
+	                        .attr("width", width + margin.left + margin.right)
+	                        .attr("height", height + margin.top + margin.bottom)
 	                        .attr("class", "chart");
 
 	           //scales
 	            var x = d3.scaleLinear()
 	                    .domain([data.timeBegin, data.timeEnd])
-	                    .range([0, w]);
+	                    .range([0, width]);
 	            var x1 = d3.scaleLinear()
-	                    .range([0, w]);
+	                    .domain([data.timeBegin, data.timeEnd])
+	                    .range([0, width]);
 	            var y1 = d3.scaleLinear()
 	                    .domain([0, data.lanes.length])
-	                    .range([0, mainHeight]);
+	                    .range([0, height]);
 	            var y2 = d3.scaleLinear()
 	                    .domain([0, data.lanes.length])
-	                    .range([0, miniHeight]);
+	                    .range([0, height2]);
 
 	            // Add a g and make it the active svg component
 				svg = svg.append('g');
@@ -158,28 +162,28 @@ define(["api/SplunkVisualizationBase","api/SplunkVisualizationUtils"], function(
 	            svg.append("defs").append("clipPath")
 	                .attr("id", "clip")
 	                .append("rect")
-	                .attr("width", w)
-	                .attr("height", mainHeight);
+	                .attr("width", width)
+	                .attr("height", height);
 
 	            var main = svg.append("g")
-	                        .attr("transform", "translate(" + m[3] + "," + m[0] + ")")
-	                        .attr("width", w)
-	                        .attr("height", mainHeight)
+	                        .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+	                        .attr("width", width)
+	                        .attr("height", height)
 	                        .attr("class", "main");
 
 	            var mini = svg.append("g")
-	                        .attr("transform", "translate(" + m[3] + "," + (mainHeight + m[0]) + ")")
-	                        .attr("width", w)
-	                        .attr("height", miniHeight)
+	                        .attr("transform", "translate(" + margin2.left + "," + margin2.top + ")")
+	                        .attr("width", width)
+	                        .attr("height", height2)
 	                        .attr("class", "mini");
 	            
-	            //main lanes and texts
+	            // Main lanes and texts
 	            main.append("g").selectAll(".laneLines")
 	                .data(data.items)
 	                .enter().append("line")
-	                .attr("x1", m[1])
+	                .attr("x1", margin.right)
 	                .attr("y1", function(d) {return y1(d.lane);})
-	                .attr("x2", w)
+	                .attr("x2", width)
 	                .attr("y2", function(d) {return y1(d.lane);})
 	                .attr("stroke", "lightgray")
 
@@ -187,19 +191,19 @@ define(["api/SplunkVisualizationBase","api/SplunkVisualizationUtils"], function(
 	                .data(data.lanes)
 	                .enter().append("text")
 	                .text(function(d) {return d.name;})
-	                .attr("x", -m[1])
+	                .attr("x", -margin.right)
 	                .attr("y", function(d, i) {return y1(i + .5);})
 	                .attr("dy", ".5ex")
 	                .attr("text-anchor", "end")
 	                .attr("class", "laneText");
 
-	            //mini lanes and texts
+	            // Mini lanes and texts
 	            mini.append("g").selectAll(".laneLines")
 	                .data(data.items)
 	                .enter().append("line")
-	                .attr("x1", m[1])
+	                .attr("x1", margin.right)
 	                .attr("y1", function(d) {return y2(d.lane);})
-	                .attr("x2", w)
+	                .attr("x2", width)
 	                .attr("y2", function(d) {return y2(d.lane);})
 	                .attr("stroke", "lightgray");
 
@@ -207,7 +211,7 @@ define(["api/SplunkVisualizationBase","api/SplunkVisualizationUtils"], function(
 	                .data(data.lanes)
 	                .enter().append("text")
 	                .text(function(d) {return d.name;})
-	                .attr("x", -m[1])
+	                .attr("x", -margin.right)
 	                .attr("y", function(d, i) {return y2(i + .5);})
 	                .attr("dy", ".5ex")
 	                .attr("text-anchor", "end")
@@ -216,7 +220,52 @@ define(["api/SplunkVisualizationBase","api/SplunkVisualizationUtils"], function(
 	            var itemRects = main.append("g")
 								.attr("clip-path", "url(#clip)");
 			
+	            // Brush
+	            var brush = d3.brushX(x)
+	                .extent([[0, 0], [width, height2]])
+	                .on("brush", display);
+
+
+	            mini.append("g")
+	                .attr("class", "brush")
+	                .call(brush)
+	                .call(brush.move, x.range())
+	                .selectAll("rect")
+	                .attr("y", 1)
+	                .attr("height", height2 - 1);
+
+	            display();
 	            
+	            function display() {
+	                var visItems = data.items;
+	                var rects, labels;
+
+	                rects = itemRects.selectAll("rect")
+				        .data(visItems, function(d) { return d.id; })
+	                    .attr("x", function(d) {return x1(d.start);})
+	                    .attr("width", function(d) {return x1(d.end) - x1(d.start);});
+	                
+	                rects.enter().append("rect")
+	                    .attr("class", function(d) {return "miniItem" + d.lane;})
+	                    .attr("x", function(d) {return x1(d.start);})
+	                    .attr("y", function(d) {return y1(d.lane) + .5*data.lanes.length;})
+	                    .attr("width", function(d) {return x1(d.end) - x1(d.start);})
+	                    .attr("height", function(d) {return .7 * y1(1);})
+	                    .attr("title", function(d) {return d.name;});
+
+	                rects.exit().remove();
+
+
+
+	                // var extent = brush.extent();
+	                // console.log('extent', extent);
+	                // var minExtent = brush.extent()[0];
+					// var maxExtent = brush.extent()[1];
+	                // console.log('minExtent', minExtent);
+	                // console.log('maxExtent', maxExtent);
+					// var visItems = data.items.filter(function(d) {return d.start < maxExtent && d.end > minExtent;});
+	                // console.log('visItems', visItems);
+	            }
 	       }
 	    });
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
