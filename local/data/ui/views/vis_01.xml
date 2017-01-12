@@ -7,10 +7,6 @@
   <label>Art Story Artists</label>
   <search>
     <query>index=jitsejan source="*theartstory_artists.csv"
-| eval leftbracket=replace(movement,"\[","")
-| eval movement=replace(leftbracket,"\]","")
-| makemv delim="," movement
-| eval movement=trim(movement)
 | lookup geo_attr_us_states.csv state_name AS borncountry 
 | lookup artists_countries_coordinates.csv country AS borncountry 
 | eval state=if(isnotnull(state_code), borncountry, NULL), borncountry=if(isnotnull(state_code), "United States", borncountry)
@@ -37,10 +33,6 @@
   </search>
   <search>
     <query>index=jitsejan source="*theartstory_artists.csv" 
-| eval leftbracket=replace(movement,"\[","") 
-| eval movement=replace(leftbracket,"\]","") 
-| makemv delim="," movement
-| eval movement=trim(movement)
 | lookup geo_attr_us_states.csv state_name AS borncountry 
 | eval state=if(isnotnull(state_code), borncountry, NULL), borncountry=if(isnotnull(state_code), "United States", borncountry) 
 | lookup geo_attr_countries.csv country AS borncountry 
@@ -74,10 +66,6 @@
       <map>
         <search>
           <query>index=jitsejan source="*theartstory_artists.csv"
-| eval leftbracket=replace(movement,"\[","")
-| eval movement=replace(leftbracket,"\]","")
-| makemv delim="," movement
-| eval movement=trim(movement)
 | lookup geo_attr_us_states.csv state_name AS borncountry 
 | eval state=if(isnotnull(state_code), borncountry, NULL), borncountry=if(isnotnull(state_code), "United States", borncountry)
 | lookup geo_attr_countries.csv country AS borncountry
@@ -122,10 +110,6 @@
       <table>
         <search>
           <query>index=jitsejan source="*theartstory_artists.csv"
-| eval leftbracket=replace(movement,"\[","")
-| eval movement=replace(leftbracket,"\]","")
-| makemv delim="," movement
-| eval movement=trim(movement)
 | lookup geo_attr_us_states.csv state_name AS borncountry 
 | eval state=if(isnotnull(state_code), borncountry, NULL), borncountry=if(isnotnull(state_code), "United States", borncountry)
 | lookup geo_attr_countries.csv country AS borncountry
@@ -157,10 +141,6 @@
       <map>
         <search>
           <query>index=jitsejan source="*theartstory_artists.csv"
-| eval leftbracket=replace(movement,"\[","")
-| eval movement=replace(leftbracket,"\]","")
-| makemv delim="," movement
-| eval movement=trim(movement)
 | lookup geo_attr_us_states.csv state_name AS borncountry 
 | lookup artists_countries_coordinates.csv country AS borncountry 
 | eval state=if(isnotnull(state_code), borncountry, NULL), borncountry=if(isnotnull(state_code), "United States", borncountry)
@@ -197,10 +177,6 @@
         <title>$form.country$</title>
         <search>
           <query>index=jitsejan source="*theartstory_artists.csv" 
-| eval leftbracket=replace(movement,"\[","") 
-| eval movement=replace(leftbracket,"\]","") 
-| makemv delim="," movement
-| eval movement=trim(movement)
 | lookup geo_attr_us_states.csv state_name AS borncountry 
 | eval state=if(isnotnull(state_code), borncountry, NULL), borncountry=if(isnotnull(state_code), "United States", borncountry) 
 | eval age=if(isnull(diedyear), 2017, diedyear)-bornyear
@@ -223,10 +199,6 @@
       <table>
         <search>
           <query>index=jitsejan source="*theartstory_artists.csv" 
-| eval leftbracket=replace(movement,"\[","") 
-| eval movement=replace(leftbracket,"\]","") 
-| makemv delim="," movement
-| eval movement=trim(movement)
 | lookup geo_attr_us_states.csv state_name AS borncountry 
 | eval state=if(isnotnull(state_code), borncountry, NULL), borncountry=if(isnotnull(state_code), "United States", borncountry) 
 | lookup geo_attr_countries.csv country AS borncountry 
@@ -256,10 +228,6 @@
         <title>$form.country$</title>
         <search>
           <query>index=jitsejan source="*theartstory_artists.csv" 
-| eval leftbracket=replace(movement,"\[","") 
-| eval movement=replace(leftbracket,"\]","") 
-| makemv delim="," movement 
-| eval movement=trim(movement) 
 | lookup geo_attr_us_states.csv state_name AS borncountry 
 | eval state=if(isnotnull(state_code), borncountry, NULL), borncountry=if(isnotnull(state_code), "United States", borncountry) 
 | lookup geo_attr_countries.csv country AS borncountry 
@@ -351,6 +319,41 @@
             </table>
           </div>
        </html>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Influences on</title>
+      <viz type="jitsejan.directed_graph">
+        <title>Arrow indicates that person A has influence on -&gt; person B.</title>
+        <search>
+          <query>index=jitsejan source="*theartstory_artists.csv" name="$form.artist$" 
+| table name influences_on_artists 
+| rename influences_on_artists AS influences_on 
+| append 
+    [ search index=jitsejan source="*theartstory_artists.csv" name="$form.artist$" 
+    | table name influences_on_friends 
+    | rename influences_on_friends AS influences_on] 
+| append 
+    [ search index=jitsejan source="*theartstory_artists.csv" 
+    | mvexpand influenced_by_friends 
+    | search influenced_by_friends="$form.artist$" 
+    | table name influenced_by_friends 
+    | rename influenced_by_friends as influences_on] 
+| append 
+    [ search index=jitsejan source="*theartstory_artists.csv" 
+    | mvexpand influenced_by_artists 
+    | search influenced_by_artists="$form.artist$" 
+    | table name influenced_by_artists 
+    | rename influenced_by_artists as influences_on] 
+| mvexpand influences_on</query>
+          <earliest>0</earliest>
+          <sampleRatio>1</sampleRatio>
+        </search>
+        <option name="height">488</option>
+        <option name="jitsejan.directed_graph.mainColor">#f7bc38</option>
+        <option name="jitsejan.directed_graph.maxValue">100</option>
+      </viz>
     </panel>
   </row>
 </dashboard>

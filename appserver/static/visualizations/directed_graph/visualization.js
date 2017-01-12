@@ -89,7 +89,7 @@ define(["api/SplunkVisualizationBase","api/SplunkVisualizationUtils"], function(
 	                var sourceName = row[0];
 	                var targetName = row[1];
 	                var categoryName = row[2];
-	                var nodeSize = row[3] || 5;
+	                var nodeSize = row[3] || 3;
 	                
 	                if($.inArray(sourceName, uniqueNames) == -1){
 	                    nodes.push({'id': counter, 'name': sourceName, 'group': categoryName});
@@ -129,8 +129,8 @@ define(["api/SplunkVisualizationBase","api/SplunkVisualizationUtils"], function(
 	            // Clear the div
 	            this.$el.empty();
 	            
-	            var width = 1400;
-	            var height = 800;
+	            var width = 700;
+	            var height = 400;
 	            
 	            // Create the canvas
 				var svg = d3.select(this.el)
@@ -182,7 +182,7 @@ define(["api/SplunkVisualizationBase","api/SplunkVisualizationUtils"], function(
 	                .selectAll("circle")
 	                .data(data.nodes)
 	                .enter().append("circle")
-	                            .attr("r", function(d) {return 5 + (parseInt(d.size)/10) || 5;})
+	                            .attr("r", function(d) {return 3 + (parseInt(d.size)/5) || 3;})
 	                            .attr("fill", function(d) { return color(d.group); })
 	                            .call(d3.drag()
 	                                .on("start", dragstarted)
