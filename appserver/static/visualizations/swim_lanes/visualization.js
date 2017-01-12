@@ -84,6 +84,8 @@ define(["api/SplunkVisualizationBase","api/SplunkVisualizationUtils"], function(
 	            var items = [];
 	            var uniqueNames = [];
 	            var counter = 0;
+	            var timeBegin = 1700;
+	            var timeEnd = 2017;
 
 	            // Define the lanes
 	            rows.forEach( function(row, i) {
@@ -98,16 +100,20 @@ define(["api/SplunkVisualizationBase","api/SplunkVisualizationUtils"], function(
 	            rows.forEach( function(row, i) {
 					item = {
 	                    'lane': $.grep(lanes, function(element, index){ return element.name === rows[i][0]; })[0]['id'],
-						'start': row[1],
-						'end': row[2],
+	                    'start': parseInt(row[1]),
+	                    'end': parseInt(row[2]),
 						'id': counter
 					};
 					items.push(item);
+	                counter = counter + 1;
 	            });
+
+	            
+				
 
 	            console.log('lanes', lanes);
 	            console.log('items', items);
-	            return {lanes: lanes};
+	            return {lanes: lanes, items: items, timeBegin: timeBegin, timeEnd: timeEnd};
 	        },
 	  
 	        updateView: function(data, config) {
@@ -120,19 +126,97 @@ define(["api/SplunkVisualizationBase","api/SplunkVisualizationUtils"], function(
 	            // Clear the div
 	            this.$el.empty();
 	            
-	            var width = 700;
-	            var height = 400;
+	            var m = [20, 15, 15, 120], //top right bottom left
+				w = 960 - m[1] - m[3],
+				h = 500 - m[0] - m[2],
+				miniHeight = data.lanes.length * 12 + 50,
+				mainHeight = h - miniHeight - 50;
 	            
 	            // Create the canvas
 				var svg = d3.select(this.el)
-							.append('svg')
-								.style('width', width + 'px')
-								.style('height', height + 'px')
-								.style('margin', '0 auto');
+							.append("svg")
+	                        .attr("width", w + m[1] + m[3])
+	                        .attr("height", h + m[0] + m[2])
+	                        .attr("class", "chart");
+
+	           //scales
+	            var x = d3.scaleLinear()
+	                    .domain([data.timeBegin, data.timeEnd])
+	                    .range([0, w]);
+	            var x1 = d3.scaleLinear()
+	                    .range([0, w]);
+	            var y1 = d3.scaleLinear()
+	                    .domain([0, data.lanes.length])
+	                    .range([0, mainHeight]);
+	            var y2 = d3.scaleLinear()
+	                    .domain([0, data.lanes.length])
+	                    .range([0, miniHeight]);
 
 	            // Add a g and make it the active svg component
 				svg = svg.append('g');
 
+	            svg.append("defs").append("clipPath")
+	                .attr("id", "clip")
+	                .append("rect")
+	                .attr("width", w)
+	                .attr("height", mainHeight);
+
+	            var main = svg.append("g")
+	                        .attr("transform", "translate(" + m[3] + "," + m[0] + ")")
+	                        .attr("width", w)
+	                        .attr("height", mainHeight)
+	                        .attr("class", "main");
+
+	            var mini = svg.append("g")
+	                        .attr("transform", "translate(" + m[3] + "," + (mainHeight + m[0]) + ")")
+	                        .attr("width", w)
+	                        .attr("height", miniHeight)
+	                        .attr("class", "mini");
+	            
+	            //main lanes and texts
+	            main.append("g").selectAll(".laneLines")
+	                .data(data.items)
+	                .enter().append("line")
+	                .attr("x1", m[1])
+	                .attr("y1", function(d) {return y1(d.lane);})
+	                .attr("x2", w)
+	                .attr("y2", function(d) {return y1(d.lane);})
+	                .attr("stroke", "lightgray")
+
+	            main.append("g").selectAll(".laneText")
+	                .data(data.lanes)
+	                .enter().append("text")
+	                .text(function(d) {return d.name;})
+	                .attr("x", -m[1])
+	                .attr("y", function(d, i) {return y1(i + .5);})
+	                .attr("dy", ".5ex")
+	                .attr("text-anchor", "end")
+	                .attr("class", "laneText");
+
+	            //mini lanes and texts
+	            mini.append("g").selectAll(".laneLines")
+	                .data(data.items)
+	                .enter().append("line")
+	                .attr("x1", m[1])
+	                .attr("y1", function(d) {return y2(d.lane);})
+	                .attr("x2", w)
+	                .attr("y2", function(d) {return y2(d.lane);})
+	                .attr("stroke", "lightgray");
+
+	            mini.append("g").selectAll(".laneText")
+	                .data(data.lanes)
+	                .enter().append("text")
+	                .text(function(d) {return d.name;})
+	                .attr("x", -m[1])
+	                .attr("y", function(d, i) {return y2(i + .5);})
+	                .attr("dy", ".5ex")
+	                .attr("text-anchor", "end")
+	                .attr("class", "laneText");
+
+	            var itemRects = main.append("g")
+								.attr("clip-path", "url(#clip)");
+			
+	            
 	       }
 	    });
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
