@@ -1,8 +1,10 @@
 <dashboard hideFooter="true">
   <init>
     <set token="form.country">*</set>
-    <set token="form.center">(0,0)</set>
+    <set token="form.center">(42,18)</set>
     <set token="form.zoom">2</set>
+    <set token="form.latitude">0</set>
+    <set token="form.longitude">0</set>
   </init>
   <label>Art Story Artists</label>
   <search>
@@ -11,12 +13,14 @@
 | lookup artists_countries_coordinates.csv country AS borncountry 
 | eval state=if(isnotnull(state_code), borncountry, NULL), borncountry=if(isnotnull(state_code), "United States", borncountry)
 | eval coord="("+latitude+","+longitude+")"
-| search borncountry="$form.country$" 
+| search borncountry=$form.$country$
 | dedup coord
-| table coord</query>
+| table latitude longitude coord</query>
     <earliest>1482263743.000</earliest>
     <sampleRatio>1</sampleRatio>
     <finalized>
+      <set token="form.latitude">$result.latitude$</set>
+      <set token="form.longitude">$result.longitude$</set>
       <set token="form.center">$result.coord$</set>
     </finalized>
   </search>
@@ -102,6 +106,9 @@
         <drilldown>
           <set token="form.country">$row.Country$</set>
           <set token="form.zoom">5</set>
+          <unset token="form.artist"></unset>
+          <unset token="form.movement"></unset>
+          <unset token="form.artimage"></unset>
         </drilldown>
       </map>
     </panel>
@@ -131,50 +138,18 @@
         <option name="wrap">true</option>
         <drilldown>
           <set token="form.country">$row.Country$</set>
+          <set token="form.zoom">5</set>
+          <unset token="form.artist"></unset>
+          <unset token="form.movement"></unset>
+          <unset token="form.artimage"></unset>
         </drilldown>
       </table>
     </panel>
   </row>
   <row>
     <panel>
-      <title>Movements per country</title>
-      <map>
-        <search>
-          <query>index=jitsejan source="*theartstory_artists.csv"
-| lookup geo_attr_us_states.csv state_name AS borncountry 
-| lookup artists_countries_coordinates.csv country AS borncountry 
-| eval state=if(isnotnull(state_code), borncountry, NULL), borncountry=if(isnotnull(state_code), "United States", borncountry)
-| geostats latfield=latitude longfield=longitude count by movement globallimit=0</query>
-          <earliest>0</earliest>
-          <sampleRatio>1</sampleRatio>
-        </search>
-        <option name="drilldown">all</option>
-        <option name="mapping.choroplethLayer.colorBins">5</option>
-        <option name="mapping.choroplethLayer.colorMode">auto</option>
-        <option name="mapping.choroplethLayer.maximumColor">0xDB5800</option>
-        <option name="mapping.choroplethLayer.minimumColor">0x2F25BA</option>
-        <option name="mapping.choroplethLayer.neutralPoint">0</option>
-        <option name="mapping.choroplethLayer.shapeOpacity">0.75</option>
-        <option name="mapping.choroplethLayer.showBorder">1</option>
-        <option name="mapping.data.maxClusters">100</option>
-        <option name="mapping.map.center">$form.center$</option>
-        <option name="mapping.map.panning">1</option>
-        <option name="mapping.map.scrollZoom">0</option>
-        <option name="mapping.map.zoom">$form.zoom$</option>
-        <option name="mapping.markerLayer.markerMaxSize">50</option>
-        <option name="mapping.markerLayer.markerMinSize">10</option>
-        <option name="mapping.markerLayer.markerOpacity">0.8</option>
-        <option name="mapping.showTiles">1</option>
-        <option name="mapping.tileLayer.maxZoom">7</option>
-        <option name="mapping.tileLayer.minZoom">0</option>
-        <option name="mapping.tileLayer.tileOpacity">1</option>
-        <option name="mapping.type">marker</option>
-      </map>
-    </panel>
-    <panel>
       <title>Age distribution</title>
       <chart>
-        <title>$form.country$</title>
         <search>
           <query>index=jitsejan source="*theartstory_artists.csv" 
 | lookup geo_attr_us_states.csv state_name AS borncountry 
@@ -184,13 +159,63 @@
 | search borncountry="$form.country$"
 | dedup name
 | table name age
-| chart count over age | rename count as Amount, age as Age</query>
+| chart count over age | rename count as Amount, age as Age | makecontinuous Age</query>
           <earliest>1482263743.000</earliest>
           <sampleRatio>1</sampleRatio>
         </search>
         <option name="charting.chart">column</option>
         <option name="height">436</option>
       </chart>
+    </panel>
+    <panel>
+      <viz type="leaflet_maps_app.leaflet_maps">
+        <search>
+          <query>index=jitsejan source="*theartstory_artists.csv" 
+| lookup artists_cities_coordinates.csv place AS bornplace  
+| stats count as count, values(bornplace) as bornplace by latitude, longitude name
+| strcat bornplace ": " count title
+| table latitude longitude values(title) AS title name</query>
+          <earliest>0</earliest>
+          <sampleRatio>1</sampleRatio>
+        </search>
+        <option name="leaflet_maps_app.leaflet_maps.allPopups">0</option>
+        <option name="leaflet_maps_app.leaflet_maps.animate">1</option>
+        <option name="leaflet_maps_app.leaflet_maps.cluster">1</option>
+        <option name="leaflet_maps_app.leaflet_maps.criticalThreshold">80</option>
+        <option name="leaflet_maps_app.leaflet_maps.defaultHeight">600</option>
+        <option name="leaflet_maps_app.leaflet_maps.drilldown">0</option>
+        <option name="leaflet_maps_app.leaflet_maps.fullScreen">0</option>
+        <option name="leaflet_maps_app.leaflet_maps.layerControl">0</option>
+        <option name="leaflet_maps_app.leaflet_maps.layerControlCollapsed">0</option>
+        <option name="leaflet_maps_app.leaflet_maps.mapCenterLat">12</option>
+        <option name="leaflet_maps_app.leaflet_maps.mapCenterLon">48</option>
+        <option name="leaflet_maps_app.leaflet_maps.mapCenterZoom">5</option>
+        <option name="leaflet_maps_app.leaflet_maps.mapTile">http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png</option>
+        <option name="leaflet_maps_app.leaflet_maps.maxClusterRadius">80</option>
+        <option name="leaflet_maps_app.leaflet_maps.maxSpiderfySize">100</option>
+        <option name="leaflet_maps_app.leaflet_maps.maxZoom">15</option>
+        <option name="leaflet_maps_app.leaflet_maps.measureActiveColor">#00ff00</option>
+        <option name="leaflet_maps_app.leaflet_maps.measureCompletedColor">#0066ff</option>
+        <option name="leaflet_maps_app.leaflet_maps.measureIconPosition">topright</option>
+        <option name="leaflet_maps_app.leaflet_maps.measureLocalization">en</option>
+        <option name="leaflet_maps_app.leaflet_maps.measurePrimaryAreaUnit">acres</option>
+        <option name="leaflet_maps_app.leaflet_maps.measurePrimaryLengthUnit">feet</option>
+        <option name="leaflet_maps_app.leaflet_maps.measureSecondaryAreaUnit">sqmiles</option>
+        <option name="leaflet_maps_app.leaflet_maps.measureSecondaryLengthUnit">miles</option>
+        <option name="leaflet_maps_app.leaflet_maps.measureTool">0</option>
+        <option name="leaflet_maps_app.leaflet_maps.minZoom">3</option>
+        <option name="leaflet_maps_app.leaflet_maps.multiplePopups">0</option>
+        <option name="leaflet_maps_app.leaflet_maps.rangeOneBgColor">#B5E28C</option>
+        <option name="leaflet_maps_app.leaflet_maps.rangeOneFgColor">#6ECC39</option>
+        <option name="leaflet_maps_app.leaflet_maps.rangeThreeBgColor">#FD9C73</option>
+        <option name="leaflet_maps_app.leaflet_maps.rangeThreeFgColor">#F18017</option>
+        <option name="leaflet_maps_app.leaflet_maps.rangeTwoBgColor">#F1D357</option>
+        <option name="leaflet_maps_app.leaflet_maps.rangeTwoFgColor">#F0C20C</option>
+        <option name="leaflet_maps_app.leaflet_maps.scrollWheelZoom">1</option>
+        <option name="leaflet_maps_app.leaflet_maps.singleMarkerMode">0</option>
+        <option name="leaflet_maps_app.leaflet_maps.spiderfyDistanceMultiplier">1</option>
+        <option name="leaflet_maps_app.leaflet_maps.warningThreshold">55</option>
+      </viz>
     </panel>
   </row>
   <row>
@@ -205,7 +230,7 @@
 | search borncountry="$form.country$"
 | table image name bornyear diedyear movement
 | rename image AS Picture name AS Name, bornyear AS "Born in", diedyear AS "Died in" movement as Movement
-| sort name</query>
+| sort Name</query>
           <earliest>1482263743.000</earliest>
           <sampleRatio>1</sampleRatio>
         </search>
@@ -322,7 +347,7 @@
     </panel>
   </row>
   <row>
-    <panel>
+    <panel depends="$form.artist$">
       <title>Influences on</title>
       <viz type="jitsejan.directed_graph">
         <title>Arrow indicates that person A has influence on -&gt; person B.</title>
