@@ -1,250 +1,250 @@
-	demonym	alpha_2	alpha_3	numeric
-Afghanistan	Afghan	AF	AFG	004
-Albania	Albanian	AL	ALB	008
-Algeria	Algerian	DZ	DZA	012
-American Samoa	Samoan	AS	ASM	016
-Andorra	Andorran	AD	AND	020
-Angola	Angolan	AO	AGO	024
-Anguilla	Anguillan	AI	AIA	660
-Antarctica		AQ	ATA	010
-Antigua and Barbuda	Antiguan, Barbudan	AG	ATG	028
-Argentina	Argentine	AR	ARG	032
-Armenia	Armenian	AM	ARM	051
-Aruba	Aruban; Dutch	AW	ABW	533
-Australia	Australian	AU	AUS	036
-Austria	Austrian	AT	AUT	040
-Azerbaijan	Azerbaijani	AZ	AZE	031
-Bahamas		BS	BHS	044
-Bahrain	Bahraini	BH	BHR	048
-Bangladesh	Bangladeshi	BD	BGD	050
-Barbados	Barbadian or Bajan (colloquial)	BB	BRB	052
-Belarus	Belarusian	BY	BLR	112
-Belgium	Belgian	BE	BEL	056
-Belize	Belizean	BZ	BLZ	084
-Benin	Beninese	BJ	BEN	204
-Bermuda	Bermudian	BM	BMU	060
-Bhutan	Bhutanese	BT	BTN	064
-Bolivia, Plurinational State of	Bolivian	BO	BOL	068
-Bonaire, Sint Eustatius and Saba		BQ	BES	535
-Bosnia and Herzegovina	Bosnian, Herzegovinian	BA	BIH	070
-Botswana	Motswana (singular), Batswana (plural)	BW	BWA	072
-Bouvet Island		BV	BVT	074
-Brazil	Brazilian	BR	BRA	076
-British Indian Ocean Territory	Indian	IO	IOT	086
-Brunei Darussalam	Bruneian	BN	BRN	096
-Bulgaria	Bulgarian	BG	BGR	100
-Burkina Faso	Burkinabe	BF	BFA	854
-Burundi	Burundian	BI	BDI	108
-Cabo Verde	Cabo Verdean	CV	CPV	132
-Cambodia	Cambodian	KH	KHM	116
-Cameroon	Cameroonian	CM	CMR	120
-Canada	Canadian	CA	CAN	124
-Cayman Islands	Caymanian	KY	CYM	136
-Central African Republic	Central African	CF	CAF	140
-Chad	Chadian	TD	TCD	148
-Chile	Chilean	CL	CHL	152
-China	Chinese	CN	CHN	156
-Christmas Island	Christmas Island	CX	CXR	162
-Cocos (Keeling) Islands	Cocos Islander	CC	CCK	166
-Colombia	Colombian	CO	COL	170
-Comoros	Comoran	KM	COM	174
-Congo	Congolese or Congo	CG	COG	178
-Congo, The Democratic Republic of the	Congolese or Congo	CD	COD	180
-Cook Islands	Cook Islander	CK	COK	184
-Costa Rica	Costa Rican	CR	CRI	188
-Croatia	Croatian	HR	HRV	191
-Cuba	Cuban	CU	CUB	192
-Curaçao	Curacaoan; Dutch	CW	CUW	531
-Cyprus	Cypriot	CY	CYP	196
-Czechia	Czech	CZ	CZE	203
-Côte d'Ivoire	Ivoirian	CI	CIV	384
-Denmark	Danish	DK	DNK	208
-Djibouti	Djiboutian	DJ	DJI	262
-Dominica	Dominican	DM	DMA	212
-Dominican Republic	Dominican	DO	DOM	214
-Ecuador	Ecuadorian	EC	ECU	218
-Egypt	Egyptian	EG	EGY	818
-El Salvador	Salvadoran	SV	SLV	222
-Equatorial Guinea	Guinean	GQ	GNQ	226
-Eritrea	Eritrean	ER	ERI	232
-Estonia	Estonian	EE	EST	233
-Ethiopia	Ethiopian	ET	ETH	231
-Falkland Islands (Malvinas)	Falkland Island	FK	FLK	238
-Faroe Islands	Faroese	FO	FRO	234
-Fiji	Fijian	FJ	FJI	242
-Finland	Finnish	FI	FIN	246
-France	French	FR	FRA	250
-French Guiana		GF	GUF	254
-French Polynesia	French Polynesian	PF	PYF	258
-French Southern Territories		TF	ATF	260
-Gabon	Gabonese	GA	GAB	266
-Gambia		GM	GMB	270
-Georgia	Georgian	GE	GEO	268
-Germany	German	DE	DEU	276
-Ghana	Ghanaian	GH	GHA	288
-Gibraltar	Gibraltar	GI	GIB	292
-Greece	Greek	GR	GRC	300
-Greenland	Greenlandic	GL	GRL	304
-Grenada	Grenadian	GD	GRD	308
-Guadeloupe		GP	GLP	312
-Guam	Guamanian	GU	GUM	316
-Guatemala	Guatemalan	GT	GTM	320
-Guernsey	Channel Islander	GG	GGY	831
-Guinea	Guinean	GN	GIN	324
-Guinea-Bissau	Guinean	GW	GNB	624
-Guyana	Guyanese	GY	GUY	328
-Haiti	Haitian	HT	HTI	332
-Heard Island and McDonald Islands		HM	HMD	334
-Holy See (Vatican City State)		VA	VAT	336
-Honduras	Honduran	HN	HND	340
-Hong Kong	Chinese/Hong Kong	HK	HKG	344
-Hungary	Hungarian	HU	HUN	348
-Iceland	Icelandic	IS	ISL	352
-India	Indian	IN	IND	356
-Indonesia	Indonesian	ID	IDN	360
-Iran, Islamic Republic of	Iranian	IR	IRN	364
-Iraq	Iraqi	IQ	IRQ	368
-Ireland	Irish	IE	IRL	372
-Isle of Man	Manx	IM	IMN	833
-Israel	Israeli	IL	ISR	376
-Italy	Italian	IT	ITA	380
-Jamaica	Jamaican	JM	JAM	388
-Japan	Japanese	JP	JPN	392
-Jersey	Channel Islander	JE	JEY	832
-Jordan	Jordanian	JO	JOR	400
-Kazakhstan	Kazakhstani	KZ	KAZ	398
-Kenya	Kenyan	KE	KEN	404
-Kiribati	I-Kiribati	KI	KIR	296
-Korea, Democratic People's Republic of	Korean	KP	PRK	408
-Korea, Republic of	Korean	KR	KOR	410
-Kuwait	Kuwaiti	KW	KWT	414
-Kyrgyzstan	Kyrgyzstani	KG	KGZ	417
-Lao People's Democratic Republic		LA	LAO	418
-Latvia	Latvian	LV	LVA	428
-Lebanon	Lebanese	LB	LBN	422
-Lesotho	Basotho	LS	LSO	426
-Liberia	Liberian	LR	LBR	430
-Libya	Libyan	LY	LBY	434
-Liechtenstein	Liechtenstein	LI	LIE	438
-Lithuania	Lithuanian	LT	LTU	440
-Luxembourg	Luxembourg	LU	LUX	442
-Macao		MO	MAC	446
-Macedonia, Republic of	Macedonian	MK	MKD	807
-Madagascar	Malagasy	MG	MDG	450
-Malawi	Malawian	MW	MWI	454
-Malaysia	Malaysian	MY	MYS	458
-Maldives	Maldivian	MV	MDV	462
-Mali	Malian	ML	MLI	466
-Malta	Maltese	MT	MLT	470
-Marshall Islands	Marshallese	MH	MHL	584
-Martinique		MQ	MTQ	474
-Mauritania	Mauritanian	MR	MRT	478
-Mauritius	Mauritian	MU	MUS	480
-Mayotte		YT	MYT	175
-Mexico	Mexican	MX	MEX	484
-Micronesia, Federated States of	Micronesian; Chuukese, Kosraen(s), Pohnpeian(s), Yapese	FM	FSM	583
-Moldova, Republic of	Moldovan	MD	MDA	498
-Monaco	Monegasque or Monacan	MC	MCO	492
-Mongolia	Mongolian	MN	MNG	496
-Montenegro	Montenegrin	ME	MNE	499
-Montserrat	Montserratian	MS	MSR	500
-Morocco	Moroccan	MA	MAR	504
-Mozambique	Mozambican	MZ	MOZ	508
-Myanmar		MM	MMR	104
-Namibia	Namibian	NA	NAM	516
-Nauru	Nauruan	NR	NRU	520
-Nepal	Nepali	NP	NPL	524
-Netherlands	Dutch	NL	NLD	528
-New Caledonia	New Caledonian	NC	NCL	540
-New Zealand	New Zealand	NZ	NZL	554
-Nicaragua	Nicaraguan	NI	NIC	558
-Niger	Nigerien	NE	NER	562
-Nigeria	Nigerien	NG	NGA	566
-Niue	Niuean	NU	NIU	570
-Norfolk Island	Norfolk Islander(s)	NF	NFK	574
-Northern Mariana Islands	NA	MP	MNP	580
-Norway	Norwegian	NO	NOR	578
-Oman	Omani	OM	OMN	512
-Pakistan	Pakistani	PK	PAK	586
-Palau	Palauan	PW	PLW	585
-Palestine, State of		PS	PSE	275
-Panama	Panamanian	PA	PAN	591
-Papua New Guinea	Papua New Guinean	PG	PNG	598
-Paraguay	Paraguayan	PY	PRY	600
-Peru	Peruvian	PE	PER	604
-Philippines	Philippine	PH	PHL	608
-Pitcairn		PN	PCN	612
-Poland	Polish	PL	POL	616
-Portugal	Portuguese	PT	PRT	620
-Puerto Rico	Puerto Rican	PR	PRI	630
-Qatar	Qatari	QA	QAT	634
-Romania	Romanian	RO	ROU	642
-Russian Federation	Russian	RU	RUS	643
-Rwanda	Rwandan	RW	RWA	646
-Réunion		RE	REU	638
-Saint Barthélemy		BL	BLM	652
-Saint Helena, Ascension and Tristan da Cunha		SH	SHN	654
-Saint Kitts and Nevis	Kittitian, Nevisian	KN	KNA	659
-Saint Lucia	Saint Lucian	LC	LCA	662
-Saint Martin (French part)		MF	MAF	663
-Saint Pierre and Miquelon	French	PM	SPM	666
-Saint Vincent and the Grenadines	Saint Vincentian or Vincentian	VC	VCT	670
-Samoa	Samoan	WS	WSM	882
-San Marino	Sammarinese	SM	SMR	674
-Sao Tome and Principe	Sao Tomean	ST	STP	678
-Saudi Arabia	Saudi or Saudi Arabian	SA	SAU	682
-Senegal	Senegalese	SN	SEN	686
-Serbia	Serbian	RS	SRB	688
-Seychelles	Seychellois	SC	SYC	690
-Sierra Leone	Sierra Leonean	SL	SLE	694
-Singapore	Singapore	SG	SGP	702
-Sint Maarten (Dutch part)		SX	SXM	534
-Slovakia	Slovak	SK	SVK	703
-Slovenia	Slovenian	SI	SVN	705
-Solomon Islands	Solomon Islander	SB	SLB	090
-Somalia	Somali	SO	SOM	706
-South Africa	South African	ZA	ZAF	710
-South Georgia and the South Sandwich Islands	Georgian	GS	SGS	239
-South Sudan	Sudanese	SS	SSD	728
-Spain	Spanish	ES	ESP	724
-Sri Lanka	Sri Lankan	LK	LKA	144
-Sudan	Sudanese	SD	SDN	729
-Suriname	Surinamese	SR	SUR	740
-Svalbard and Jan Mayen		SJ	SJM	744
-Swaziland	Swazi	SZ	SWZ	748
-Sweden	Swedish	SE	SWE	752
-Switzerland	Swiss	CH	CHE	756
-Syrian Arab Republic	Syrian	SY	SYR	760
-Taiwan, Province of China	Taiwan (or Taiwanese)	TW	TWN	158
-Tajikistan	Tajikistani	TJ	TJK	762
-Tanzania, United Republic of	Tanzanian	TZ	TZA	834
-Thailand	Thai	TH	THA	764
-Timor-Leste	Timorese	TL	TLS	626
-Togo	Togolese	TG	TGO	768
-Tokelau	Tokelauan	TK	TKL	772
-Tonga	Tongan	TO	TON	776
-Trinidad and Tobago	Trinidadian, Tobagonian	TT	TTO	780
-Tunisia	Tunisian	TN	TUN	788
-Turkey	Turkish	TR	TUR	792
-Turkmenistan	Turkmen	TM	TKM	795
-Turks and Caicos Islands	none	TC	TCA	796
-Tuvalu	Tuvaluan	TV	TUV	798
-Uganda	Ugandan	UG	UGA	800
-Ukraine	Ukrainian	UA	UKR	804
-United Arab Emirates	Emirati	AE	ARE	784
-United Kingdom	British	GB	GBR	826
-United States	American	US	USA	840
-United States Minor Outlying Islands	American	UM	UMI	581
-Uruguay	Uruguayan	UY	URY	858
-Uzbekistan	Uzbekistani	UZ	UZB	860
-Vanuatu	Ni-Vanuatu	VU	VUT	548
-Venezuela, Bolivarian Republic of	Venezuelan	VE	VEN	862
-Viet Nam	Vietnamese	VN	VNM	704
-Virgin Islands, British	Virgin Islander	VG	VGB	092
-Virgin Islands, U.S.	Virgin Islander	VI	VIR	850
-Wallis and Futuna	Wallisian, Futunan, or Wallis and Futuna Islander	WF	WLF	876
-Western Sahara	Sahrawi, Sahrawian, Sahraouian	EH	ESH	732
-Yemen	Yemeni	YE	YEM	887
-Zambia	Zambian	ZM	ZMB	894
-Zimbabwe	Zimbabwean	ZW	ZWE	716
-Åland Islands		AX	ALA	248
+,nationality,alpha_2,alpha_3,numeric,country,latitude,longitude
+Afghanistan,Afghan,AF,AFG,4,Afghanistan,33.7680065,66.2385139
+Albania,Albanian,AL,ALB,8,Albania,41.000028,19.9999619
+Algeria,Algerian,DZ,DZA,12,Algeria,28.0000272,2.9999825
+American Samoa,Samoan,AS,ASM,16,American Samoa,-14.30063085,-170.695974692
+Andorra,Andorran,AD,AND,20,Andorra,42.5407167,1.5732033
+Angola,Angolan,AO,AGO,24,Angola,-11.8775767,17.5691241
+Anguilla,Anguillan,AI,AIA,660,Anguilla,18.1954947,-63.0750233
+Antarctica,,AQ,ATA,10,Antarctica,-82.1081821,34.37824
+Antigua and Barbuda,"Antiguan, Barbudan",AG,ATG,28,Antigua and Barbuda,17.079128,-61.8222515
+Argentina,Argentine,AR,ARG,32,Argentina,-34.9964962,-64.9672816
+Armenia,Armenian,AM,ARM,51,Armenia,40.7696272,44.6736646
+Aruba,Aruban; Dutch,AW,ABW,533,Aruba,12.5013629,-69.9618474
+Australia,Australian,AU,AUS,36,Australia,-24.7761085,134.755
+Austria,Austrian,AT,AUT,40,Austria,47.2000338,13.199959
+Azerbaijan,Azerbaijani,AZ,AZE,31,Azerbaijan,40.3936294,47.7872508
+Bahamas,,BS,BHS,44,Bahamas,24.7736546,-78.0000546
+Bahrain,Bahraini,BH,BHR,48,Bahrain,26.1551249,50.5344606
+Bangladesh,Bangladeshi,BD,BGD,50,Bangladesh,24.4768783,90.2932426
+Barbados,Barbadian or Bajan (colloquial),BB,BRB,52,Barbados,13.1500331,-59.5250304
+Belarus,Belarusian,BY,BLR,112,Belarus,53.4250605,27.6971358
+Belgium,Belgian,BE,BEL,56,Belgium,50.6407351,4.66696
+Belize,Belizean,BZ,BLZ,84,Belize,16.8259793,-88.7600926
+Benin,Beninese,BJ,BEN,204,Benin,9.5293472,2.2584408
+Bermuda,Bermudian,BM,BMU,60,Bermuda,32.3018217,-64.7603582
+Bhutan,Bhutanese,BT,BTN,64,Bhutan,27.549511,90.5119273
+"Bolivia, Plurinational State of",Bolivian,BO,BOL,68,"Bolivia, Plurinational State of",-17.0568695,-64.9912285
+"Bonaire, Sint Eustatius and Saba",,BQ,BES,535,"Bonaire, Sint Eustatius and Saba",12.167,-68.2909679033
+Bosnia and Herzegovina,"Bosnian, Herzegovinian",BA,BIH,70,Bosnia and Herzegovina,44.3053476,17.5961467
+Botswana,"Motswana (singular), Batswana (plural)",BW,BWA,72,Botswana,-23.1681781,24.5928742
+Bouvet Island,,BV,BVT,74,Bouvet Island,-54.4191375,3.36098251649
+Brazil,Brazilian,BR,BRA,76,Brazil,-10.3333332,-53.1999999
+British Indian Ocean Territory,Indian,IO,IOT,86,British Indian Ocean Territory,-6.4157191,72.1173961
+Brunei Darussalam,Bruneian,BN,BRN,96,Brunei Darussalam,4.4137155,114.5653908
+Bulgaria,Bulgarian,BG,BGR,100,Bulgaria,42.6073975,25.4856617
+Burkina Faso,Burkinabe,BF,BFA,854,Burkina Faso,12.0753083,-1.6880313
+Burundi,Burundian,BI,BDI,108,Burundi,-3.3634356,29.8870575
+Cabo Verde,Cabo Verdean,CV,CPV,132,Cabo Verde,16.0000552,-24.0083946
+Cambodia,Cambodian,KH,KHM,116,Cambodia,13.5066394,104.869423
+Cameroon,Cameroonian,CM,CMR,120,Cameroon,4.6125522,13.1535811
+Canada,Canadian,CA,CAN,124,Canada,61.0666922,-107.991707
+Cayman Islands,Caymanian,KY,CYM,136,Cayman Islands,19.5417212,-80.5667131
+Central African Republic,Central African,CF,CAF,140,Central African Republic,25.2183959,55.1752385762
+Chad,Chadian,TD,TCD,148,Chad,15.6134137,19.0156172
+Chile,Chilean,CL,CHL,152,Chile,-31.7613364,-71.3187696
+China,Chinese,CN,CHN,156,China,35.000074,104.999927
+Christmas Island,Christmas Island,CX,CXR,162,Christmas Island,-10.4878278,105.6329821
+Cocos (Keeling) Islands,Cocos Islander,CC,CCK,166,Cocos (Keeling) Islands,-12.1691893,96.8301442
+Colombia,Colombian,CO,COL,170,Colombia,2.8894434,-73.7838919
+Comoros,Comoran,KM,COM,174,Comoros,-12.2045175,44.2832964
+Congo,Congolese or Congo,CG,COG,178,Congo,-2.9814343,23.8222636
+"Congo, The Democratic Republic of the",Congolese or Congo,CD,COD,180,"Congo, The Democratic Republic of the",-2.9814343,23.8222636
+Cook Islands,Cook Islander,CK,COK,184,Cook Islands,-16.049278,-160.355485
+Costa Rica,Costa Rican,CR,CRI,188,Costa Rica,10.2735633,-84.0739101
+Croatia,Croatian,HR,HRV,191,Croatia,45.5643442,17.0118954
+Cuba,Cuban,CU,CUB,192,Cuba,23.0131338,-80.8328747
+Curaçao,Curacaoan; Dutch,CW,CUW,531,Curaçao,12.1845,-68.9640917594
+Cyprus,Cypriot,CY,CYP,196,Cyprus,34.9823018,33.1451285
+Czechia,Czech,CZ,CZE,203,Czechia,49.0583739,17.460206617
+Côte d'Ivoire,Ivoirian,CI,CIV,384,Côte d'Ivoire,7.9897371,-5.5679457
+Denmark,Danish,DK,DNK,208,Denmark,55.670249,10.3333283
+Djibouti,Djiboutian,DJ,DJI,262,Djibouti,11.85677545,42.7577845199
+Dominica,Dominican,DM,DMA,212,Dominica,15.4113138,-61.3653617
+Dominican Republic,Dominican,DO,DOM,214,Dominican Republic,19.0974031,-70.3028025
+Ecuador,Ecuadorian,EC,ECU,218,Ecuador,-1.3397667,-79.3666964
+Egypt,Egyptian,EG,EGY,818,Egypt,26.2540493,29.2675469
+El Salvador,Salvadoran,SV,SLV,222,El Salvador,13.8000382,-88.9140682
+Equatorial Guinea,Guinean,GQ,GNQ,226,Equatorial Guinea,1.613172,10.5170357
+Eritrea,Eritrean,ER,ERI,232,Eritrea,15.9500319,37.9999668
+Estonia,Estonian,EE,EST,233,Estonia,58.7523778,25.3319078
+Ethiopia,Ethiopian,ET,ETH,231,Ethiopia,10.2116702,38.6521203
+Falkland Islands (Malvinas),Falkland Island,FK,FLK,238,Falkland Islands (Malvinas),-51.9666423,-59.5500386
+Faroe Islands,Faroese,FO,FRO,234,Faroe Islands,62.19889095,-6.81780730578
+Fiji,Fijian,FJ,FJI,242,Fiji,-18.1239695,179.0122737
+Finland,Finnish,FI,FIN,246,Finland,63.2467777,25.9209164
+France,French,FR,FRA,250,France,46.603354,1.8883335
+French Guiana,,GF,GUF,254,French Guiana,4.0039882,-52.9999979
+French Polynesia,French Polynesian,PF,PYF,258,French Polynesia,-18.6243748,-144.6434897
+French Southern Territories,,TF,ATF,260,French Southern Territories,-44.1511784,63.8604556
+Gabon,Gabonese,GA,GAB,266,Gabon,-0.8999694,11.6899699
+Gambia,,GM,GMB,270,Gambia,13.470062,-15.4900463
+Georgia,Georgian,GE,GEO,268,Georgia,32.3293809,-83.1137365
+Germany,German,DE,DEU,276,Germany,51.0834196,10.4234469
+Ghana,Ghanaian,GH,GHA,288,Ghana,8.0300284,-1.080027
+Gibraltar,Gibraltar,GI,GIB,292,Gibraltar,36.1451465,-5.3484847
+Greece,Greek,GR,GRC,300,Greece,38.9953683,21.9877132
+Greenland,Greenlandic,GL,GRL,304,Greenland,77.6192349,-42.8125966
+Grenada,Grenadian,GD,GRD,308,Grenada,12.1360374,-61.6904044
+Guadeloupe,,GP,GLP,312,Guadeloupe,16.2490067,-61.5650443
+Guam,Guamanian,GU,GUM,316,Guam,13.4501257,144.75755103
+Guatemala,Guatemalan,GT,GTM,320,Guatemala,15.6356088,-89.8988086
+Guernsey,Channel Islander,GG,GGY,831,Guernsey,49.46229125,-2.58120215033
+Guinea,Guinean,GN,GIN,324,Guinea,10.7226226,-10.7083586
+Guinea-Bissau,Guinean,GW,GNB,624,Guinea-Bissau,12.100035,-14.9000213
+Guyana,Guyanese,GY,GUY,328,Guyana,4.8417097,-58.641689
+Haiti,Haitian,HT,HTI,332,Haiti,19.1399952,-72.3570971
+Heard Island and McDonald Islands,,HM,HMD,334,Heard Island and McDonald Islands,-53.0242764,72.9231353
+Holy See (Vatican City State),,VA,VAT,336,Holy See (Vatican City State),,
+Honduras,Honduran,HN,HND,340,Honduras,15.0610686,-84.5978533
+Hong Kong,Chinese/Hong Kong,HK,HKG,344,Hong Kong,22.2793278,114.1628131
+Hungary,Hungarian,HU,HUN,348,Hungary,47.1817585,19.5060937
+Iceland,Icelandic,IS,ISL,352,Iceland,64.9841821,-18.1059012
+India,Indian,IN,IND,356,India,22.3511148,78.6677428
+Indonesia,Indonesian,ID,IDN,360,Indonesia,-4.7993355,114.5632032
+"Iran, Islamic Republic of",Iranian,IR,IRN,364,"Iran, Islamic Republic of",32.9407496,52.9471344
+Iraq,Iraqi,IQ,IRQ,368,Iraq,33.0955793,44.1749775
+Ireland,Irish,IE,IRL,372,Ireland,52.865196,-7.9794598
+Isle of Man,Manx,IM,IMN,833,Isle of Man,54.2358167,-4.5145986457
+Israel,Israeli,IL,ISR,376,Israel,30.8760272,35.0015196
+Italy,Italian,IT,ITA,380,Italy,42.6384261,12.674297
+Jamaica,Jamaican,JM,JAM,388,Jamaica,18.1850507,-77.3947692
+Japan,Japanese,JP,JPN,392,Japan,36.5748441,139.2394179
+Jersey,Channel Islander,JE,JEY,832,Jersey,49.2214561,-2.1358385
+Jordan,Jordanian,JO,JOR,400,Jordan,31.1667049,36.941628
+Kazakhstan,Kazakhstani,KZ,KAZ,398,Kazakhstan,47.2286086,65.2093197
+Kenya,Kenyan,KE,KEN,404,Kenya,1.4419683,38.4313975
+Kiribati,I-Kiribati,KI,KIR,296,Kiribati,0.4483283,-171.6645387
+"Korea, Democratic People's Republic of",Korean,KP,PRK,408,"Korea, Democratic People's Republic of",,
+"Korea, Republic of",Korean,KR,KOR,410,"Korea, Republic of",35.3985008,127.937111
+Kuwait,Kuwaiti,KW,KWT,414,Kuwait,29.2733964,47.4979476
+Kyrgyzstan,Kyrgyzstani,KG,KGZ,417,Kyrgyzstan,41.5089324,74.724091
+Lao People's Democratic Republic,,LA,LAO,418,Lao People's Democratic Republic,20.0171109,103.378253
+Latvia,Latvian,LV,LVA,428,Latvia,56.8666904,24.5999717
+Lebanon,Lebanese,LB,LBN,422,Lebanon,33.8750629,35.843409
+Lesotho,Basotho,LS,LSO,426,Lesotho,-29.6039266,28.3350193
+Liberia,Liberian,LR,LBR,430,Liberia,5.7499721,-9.3658523
+Libya,Libyan,LY,LBY,434,Libya,26.8234472,18.1236723
+Liechtenstein,Liechtenstein,LI,LIE,438,Liechtenstein,47.1416307,9.5531527
+Lithuania,Lithuanian,LT,LTU,440,Lithuania,55.3500003,23.7499998
+Luxembourg,Luxembourg,LU,LUX,442,Luxembourg,49.8158683,6.1296751
+Macao,,MO,MAC,446,Macao,22.1899448,113.5380454
+"Macedonia, Republic of",Macedonian,MK,MKD,807,"Macedonia, Republic of",40.7901738,22.410819
+Madagascar,Malagasy,MG,MDG,450,Madagascar,-18.9249603,46.4416422
+Malawi,Malawian,MW,MWI,454,Malawi,-13.2687203,33.9301963
+Malaysia,Malaysian,MY,MYS,458,Malaysia,2.3923759,112.8471939
+Maldives,Maldivian,MV,MDV,462,Maldives,4.7064352,73.3287853
+Mali,Malian,ML,MLI,466,Mali,16.3700359,-2.2900238
+Malta,Maltese,MT,MLT,470,Malta,35.8885993,14.4476911
+Marshall Islands,Marshallese,MH,MHL,584,Marshall Islands,6.9518742,170.9985095
+Martinique,,MQ,MTQ,474,Martinique,14.6113732,-60.9620776
+Mauritania,Mauritanian,MR,MRT,478,Mauritania,20.2540382,-9.2399262
+Mauritius,Mauritian,MU,MUS,480,Mauritius,-20.275945,57.5703566
+Mayotte,,YT,MYT,175,Mayotte,-12.8230479,45.1520755
+Mexico,Mexican,MX,MEX,484,Mexico,19.4326009,-99.1333415
+"Micronesia, Federated States of","Micronesian; Chuukese, Kosraen(s), Pohnpeian(s), Yapese",FM,FSM,583,"Micronesia, Federated States of",5.5600565,150.1982846
+"Moldova, Republic of",Moldovan,MD,MDA,498,"Moldova, Republic of",47.286747,28.5110236
+Monaco,Monegasque or Monacan,MC,MCO,492,Monaco,43.7311424,7.4197576
+Mongolia,Mongolian,MN,MNG,496,Mongolia,46.8250388,103.8499736
+Montenegro,Montenegrin,ME,MNE,499,Montenegro,43.0285558,19.291739
+Montserrat,Montserratian,MS,MSR,500,Montserrat,16.7417041,-62.1916843
+Morocco,Moroccan,MA,MAR,504,Morocco,31.1728192,-7.3366042
+Mozambique,Mozambican,MZ,MOZ,508,Mozambique,-19.3022329,34.9144977
+Myanmar,,MM,MMR,104,Myanmar,17.1750495,95.9999652
+Namibia,Namibian,,NAM,516,Namibia,-23.2335498,17.3231107
+Nauru,Nauruan,NR,NRU,520,Nauru,-0.5249623,166.9333009
+Nepal,Nepali,NP,NPL,524,Nepal,28.1082107,84.0917515
+Netherlands,Dutch,NL,NLD,528,Netherlands,52.2379891,5.53460738162
+New Caledonia,New Caledonian,NC,NCL,540,New Caledonia,-21.3019904,165.4880773
+New Zealand,New Zealand,NZ,NZL,554,New Zealand,-41.500083,172.8344077
+Nicaragua,Nicaraguan,NI,NIC,558,Nicaragua,12.3724928,-84.8700307
+Niger,Nigerien,NE,NER,562,Niger,17.7356214,9.3238432
+Nigeria,Nigerien,NG,NGA,566,Nigeria,9.6000359,7.9999721
+Niue,Niuean,NU,NIU,570,Niue,-19.0536413,-169.861341
+Norfolk Island,Norfolk Islander(s),NF,NFK,574,Norfolk Island,-29.02900945,167.958672247
+Northern Mariana Islands,,MP,MNP,580,Northern Mariana Islands,14.1490205,145.213452483
+Norway,Norwegian,NO,NOR,578,Norway,64.574131,11.5270102892
+Oman,Omani,OM,OMN,512,Oman,21.0000287,57.0036901
+Pakistan,Pakistani,PK,PAK,586,Pakistan,30.3308401,71.247499
+Palau,Palauan,PW,PLW,585,Palau,6.097367,133.313631
+"Palestine, State of",,PS,PSE,275,"Palestine, State of",35.39946,-80.1729989
+Panama,Panamanian,PA,PAN,591,Panama,8.3096067,-81.3066245
+Papua New Guinea,Papua New Guinean,PG,PNG,598,Papua New Guinea,-5.6816068,144.2489081
+Paraguay,Paraguayan,PY,PRY,600,Paraguay,-23.3165934,-58.1693444
+Peru,Peruvian,PE,PER,604,Peru,-6.8699696,-75.0458514
+Philippines,Philippine,PH,PHL,608,Philippines,12.7503486,122.7312101
+Pitcairn,,PN,PCN,612,Pitcairn,-25.0657718,-130.1017822
+Poland,Polish,PL,POL,616,Poland,52.0977181,19.0258159
+Portugal,Portuguese,PT,PRT,620,Portugal,40.033265,-7.8896262
+Puerto Rico,Puerto Rican,PR,PRI,630,Puerto Rico,18.2017809,-66.5841245
+Qatar,Qatari,QA,QAT,634,Qatar,25.3336984,51.2295295
+Romania,Romanian,RO,ROU,642,Romania,45.9852129,24.6859225
+Russian Federation,Russian,RU,RUS,643,Russian Federation,64.6863136,97.7453061
+Rwanda,Rwandan,RW,RWA,646,Rwanda,-1.964663,30.0644358
+Réunion,,RE,REU,638,Réunion,-21.1309331,55.5265771
+Saint Barthélemy,,BL,BLM,652,Saint Barthélemy,17.8962582,-62.8299255
+"Saint Helena, Ascension and Tristan da Cunha",,SH,SHN,654,"Saint Helena, Ascension and Tristan da Cunha",-15.991955,-5.6999093
+Saint Kitts and Nevis,"Kittitian, Nevisian",KN,KNA,659,Saint Kitts and Nevis,17.3462278,-62.7687276
+Saint Lucia,Saint Lucian,LC,LCA,662,Saint Lucia,13.8250489,-60.9750359
+Saint Martin (French part),,MF,MAF,663,Saint Martin (French part),18.0814066,-63.046713
+Saint Pierre and Miquelon,French,PM,SPM,666,Saint Pierre and Miquelon,46.8374544,-56.2120554
+Saint Vincent and the Grenadines,Saint Vincentian or Vincentian,VC,VCT,670,Saint Vincent and the Grenadines,12.90447,-61.2765568
+Samoa,Samoan,WS,WSM,882,Samoa,-13.7693894,-172.1200507
+San Marino,Sammarinese,SM,SMR,674,San Marino,43.9458623,12.458306
+Sao Tome and Principe,Sao Tomean,ST,STP,678,Sao Tome and Principe,0.8875498,6.9648718
+Saudi Arabia,Saudi or Saudi Arabian,SA,SAU,682,Saudi Arabia,25.6242618,42.3528328
+Senegal,Senegalese,SN,SEN,686,Senegal,14.4750607,-14.4529611
+Serbia,Serbian,RS,SRB,688,Serbia,44.1534121,20.55144
+Seychelles,Seychellois,SC,SYC,690,Seychelles,-4.6574976,55.4540146
+Sierra Leone,Sierra Leonean,SL,SLE,694,Sierra Leone,8.6400349,-11.8400268
+Singapore,Singapore,SG,SGP,702,Singapore,1.2904527,103.852038
+Sint Maarten (Dutch part),,SX,SXM,534,Sint Maarten (Dutch part),17.9345,-63.1539329808
+Slovakia,Slovak,SK,SVK,703,Slovakia,48.7411522,19.4528646
+Slovenia,Slovenian,SI,SVN,705,Slovenia,45.8133113,14.4808369
+Solomon Islands,Solomon Islander,SB,SLB,90,Solomon Islands,-9.7354343,162.8288542
+Somalia,Somali,SO,SOM,706,Somalia,8.3676771,49.083416
+South Africa,South African,ZA,ZAF,710,South Africa,-28.8166235,24.991639
+South Georgia and the South Sandwich Islands,Georgian,GS,SGS,239,South Georgia and the South Sandwich Islands,-54.8432856,-35.8090697
+South Sudan,Sudanese,SS,SSD,728,South Sudan,7.8699431,29.6667897
+Spain,Spanish,ES,ESP,724,Spain,40.0028028,-4.0031039
+Sri Lanka,Sri Lankan,LK,LKA,144,Sri Lanka,7.878,80.7038245875
+Sudan,Sudanese,SD,SDN,729,Sudan,15.45374395,29.7951525192
+Suriname,Surinamese,SR,SUR,740,Suriname,4.1413025,-56.0771186
+Svalbard and Jan Mayen,,SJ,SJM,744,Svalbard and Jan Mayen,78.7198519,20.3493328
+Swaziland,Swazi,SZ,SWZ,748,Swaziland,-26.5624805,31.3991317
+Sweden,Swedish,SE,SWE,752,Sweden,59.6749712,14.5208584
+Switzerland,Swiss,CH,CHE,756,Switzerland,46.7985624,8.2319736
+Syrian Arab Republic,Syrian,SY,SYR,760,Syrian Arab Republic,34.6401861,39.0494106
+"Taiwan, Province of China",Taiwan (or Taiwanese),TW,TWN,158,"Taiwan, Province of China",25.6870423,100.161631
+Tajikistan,Tajikistani,TJ,TJK,762,Tajikistan,38.6281733,70.8156541
+"Tanzania, United Republic of",Tanzanian,TZ,TZA,834,"Tanzania, United Republic of",-6.81262935,39.2896245575
+Thailand,Thai,TH,THA,764,Thailand,14.8971921,100.83273
+Timor-Leste,Timorese,TL,TLS,626,Timor-Leste,-8.5151978,125.8375756
+Togo,Togolese,TG,TGO,768,Togo,8.7800265,1.0199765
+Tokelau,Tokelauan,TK,TKL,772,Tokelau,-9.1676395,-171.8196877
+Tonga,Tongan,TO,TON,776,Tonga,-19.9160818,-175.2026423
+Trinidad and Tobago,"Trinidadian, Tobagonian",TT,TTO,780,Trinidad and Tobago,10.8677845,-60.9821066
+Tunisia,Tunisian,TN,TUN,788,Tunisia,33.8439408,9.400138
+Turkey,Turkish,TR,TUR,792,Turkey,38.9597594,34.9249653
+Turkmenistan,Turkmen,TM,TKM,795,Turkmenistan,39.3763807,59.3924609
+Turks and Caicos Islands,none,TC,TCA,796,Turks and Caicos Islands,21.7214683,-71.6201782
+Tuvalu,Tuvaluan,TV,TUV,798,Tuvalu,-7.7689589,178.1167698
+Uganda,Ugandan,UG,UGA,800,Uganda,1.5333554,32.2166578
+Ukraine,Ukrainian,UA,UKR,804,Ukraine,49.4871968,31.2718321
+United Arab Emirates,Emirati,AE,ARE,784,United Arab Emirates,24.0002488,53.9994829
+United Kingdom,British,GB,GBR,826,United Kingdom,54.7023545,-3.2765752
+United States,American,US,USA,840,United States,39.7837304,-100.4458824
+United States Minor Outlying Islands,American,UM,UMI,581,United States Minor Outlying Islands,6.4295092,-162.407309879
+Uruguay,Uruguayan,UY,URY,858,Uruguay,-32.8755547,-56.0201524
+Uzbekistan,Uzbekistani,UZ,UZB,860,Uzbekistan,41.32373,63.9528098
+Vanuatu,Ni-Vanuatu,VU,VUT,548,Vanuatu,-16.5255068,168.1069154
+"Venezuela, Bolivarian Republic of",Venezuelan,VE,VEN,862,"Venezuela, Bolivarian Republic of",8.0018709,-66.1109317
+Viet Nam,Vietnamese,VN,VNM,704,Viet Nam,13.2904027,108.4265113
+"Virgin Islands, British",Virgin Islander,VG,VGB,92,"Virgin Islands, British",18.4024395,-64.5661641
+"Virgin Islands, U.S.",Virgin Islander,VI,VIR,850,"Virgin Islands, U.S.",,
+Wallis and Futuna,"Wallisian, Futunan, or Wallis and Futuna Islander",WF,WLF,876,Wallis and Futuna,-13.8173323,-177.1489648
+Western Sahara,"Sahrawi, Sahrawian, Sahraouian",EH,ESH,732,Western Sahara,24.1188663,-13.9508922284
+Yemen,Yemeni,YE,YEM,887,Yemen,16.3471243,47.8915271
+Zambia,Zambian,ZM,ZMB,894,Zambia,-14.5186238,27.5599164
+Zimbabwe,Zimbabwean,ZW,ZWE,716,Zimbabwe,-18.4554962,29.7468414
+Åland Islands,,AX,ALA,248,Åland Islands,60.2166218,19.9438638

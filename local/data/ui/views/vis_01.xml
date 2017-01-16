@@ -1,4 +1,4 @@
-<dashboard hideFooter="true">
+<form hideFooter="true">
   <init>
     <set token="form.country">*</set>
     <set token="form.center">(42,18)</set>
@@ -64,12 +64,43 @@
       <set token="Endyear">$result.endyear$</set>
     </finalized>
   </search>
+  <fieldset submitButton="false">
+    <input type="dropdown" token="country" searchWhenChanged="true">
+      <label>Country</label>
+      <showClearButton>true</showClearButton>
+      <default>*</default>
+      <search>
+        <query>index=jitsejan source="*theartstory_artists.csv" | table borncountry | dedup borncountry | sort borncountry</query>
+        <earliest>0</earliest>
+      </search>
+      <fieldForLabel>Country</fieldForLabel>
+      <fieldForValue>borncountry</fieldForValue>
+      <change>
+        <condition value="*"></condition>
+        <condition>
+          <set token="form.country">*</set>
+        </condition>
+      </change>
+    </input>
+    <input type="link" token="reset" searchWhenChanged="true">
+      <label></label>
+      <choice value="reset">Reset</choice>
+      <default></default>
+      <change>
+        <condition value="reset">
+          <unset token="form.artist"></unset>
+          <set token="form.country">*</set>
+          <unset token="form.artwork"></unset>
+        </condition>
+      </change>
+    </input>
+  </fieldset>
   <row>
     <panel>
       <title>Countries of birth</title>
       <map>
         <search>
-          <query>index=jitsejan source="*theartstory_artists.csv"
+          <query>index=jitsejan source="*theartstory_artists.csv" borncountry="$form.country$"
 | lookup geo_attr_us_states.csv state_name AS borncountry 
 | eval state=if(isnotnull(state_code), borncountry, NULL), borncountry=if(isnotnull(state_code), "United States", borncountry)
 | lookup geo_attr_countries.csv country AS borncountry
@@ -168,13 +199,14 @@
       </chart>
     </panel>
     <panel>
+      <title>Leaflet map</title>
       <viz type="leaflet_maps_app.leaflet_maps">
         <search>
-          <query>index=jitsejan source="*theartstory_artists.csv" 
+          <query>index=jitsejan source="*theartstory_artists.csv" borncountry="$form.country$"
 | lookup artists_cities_coordinates.csv place AS bornplace  
 | stats count as count, values(bornplace) as bornplace by latitude, longitude name
 | strcat bornplace ": " count title
-| table latitude longitude values(title) AS title name</query>
+| table latitude longitude title</query>
           <earliest>0</earliest>
           <sampleRatio>1</sampleRatio>
         </search>
@@ -187,13 +219,13 @@
         <option name="leaflet_maps_app.leaflet_maps.fullScreen">0</option>
         <option name="leaflet_maps_app.leaflet_maps.layerControl">0</option>
         <option name="leaflet_maps_app.leaflet_maps.layerControlCollapsed">0</option>
-        <option name="leaflet_maps_app.leaflet_maps.mapCenterLat">12</option>
-        <option name="leaflet_maps_app.leaflet_maps.mapCenterLon">48</option>
-        <option name="leaflet_maps_app.leaflet_maps.mapCenterZoom">5</option>
+        <option name="leaflet_maps_app.leaflet_maps.mapCenterLat">48</option>
+        <option name="leaflet_maps_app.leaflet_maps.mapCenterLon">11</option>
+        <option name="leaflet_maps_app.leaflet_maps.mapCenterZoom">3</option>
         <option name="leaflet_maps_app.leaflet_maps.mapTile">http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png</option>
         <option name="leaflet_maps_app.leaflet_maps.maxClusterRadius">80</option>
         <option name="leaflet_maps_app.leaflet_maps.maxSpiderfySize">100</option>
-        <option name="leaflet_maps_app.leaflet_maps.maxZoom">15</option>
+        <option name="leaflet_maps_app.leaflet_maps.maxZoom">19</option>
         <option name="leaflet_maps_app.leaflet_maps.measureActiveColor">#00ff00</option>
         <option name="leaflet_maps_app.leaflet_maps.measureCompletedColor">#0066ff</option>
         <option name="leaflet_maps_app.leaflet_maps.measureIconPosition">topright</option>
@@ -381,4 +413,63 @@
       </viz>
     </panel>
   </row>
-</dashboard>
+  <row>
+    <panel>
+      <title>Years of creation</title>
+      <chart>
+        <search>
+          <query>index=jitsejan source="*theartstory_artists.csv" 
+| rex max_match=10 "(?&lt;artworks_json&gt;{[^}]+})" field=artworks 
+| rex mode=sed "s/\'/\"/g" field=artworks_json 
+| rex mode=sed "s/u\"/\"/g" field=artworks_json 
+| mvexpand artworks_json 
+| spath input=artworks_json 
+| rename date AS Date materials as Materials 
+| rex (?&lt;creationyear&gt;\d{4}) field=Date 
+| mvexpand movement 
+| dedup name title 
+| search 
+    [ search index=jitsejan source="*theartstory_artists.csv" 
+    | rex max_match=10 "(?&lt;artworks_json&gt;{[^}]+})" field=artworks 
+    | rex mode=sed "s/\'/\"/g" field=artworks_json 
+    | rex mode=sed "s/u\"/\"/g" field=artworks_json 
+    | mvexpand artworks_json 
+    | spath input=artworks_json 
+    | rename date AS Date materials as Materials 
+    | rex (?&lt;creationyear&gt;\d{4}) field=Date 
+    | mvexpand movement 
+    | dedup name title 
+    | top movement limit=0
+    | return 20 movement] 
+| chart count over creationyear by movement usenull=f useother=f limit=0 
+| rename creationyear as "Year of creation"</query>
+          <earliest>1482263743.000</earliest>
+          <sampleRatio>1</sampleRatio>
+        </search>
+        <option name="charting.axisLabelsX.majorLabelStyle.overflowMode">ellipsisNone</option>
+        <option name="charting.axisLabelsX.majorLabelStyle.rotation">90</option>
+        <option name="charting.axisTitleX.visibility">visible</option>
+        <option name="charting.axisTitleY.visibility">visible</option>
+        <option name="charting.axisTitleY2.visibility">visible</option>
+        <option name="charting.axisX.scale">linear</option>
+        <option name="charting.axisY.scale">linear</option>
+        <option name="charting.axisY2.enabled">0</option>
+        <option name="charting.axisY2.scale">inherit</option>
+        <option name="charting.chart">column</option>
+        <option name="charting.chart.bubbleMaximumSize">50</option>
+        <option name="charting.chart.bubbleMinimumSize">10</option>
+        <option name="charting.chart.bubbleSizeBy">area</option>
+        <option name="charting.chart.nullValueMode">zero</option>
+        <option name="charting.chart.showDataLabels">none</option>
+        <option name="charting.chart.sliceCollapsingThreshold">0.01</option>
+        <option name="charting.chart.stackMode">stacked</option>
+        <option name="charting.chart.style">shiny</option>
+        <option name="charting.drilldown">all</option>
+        <option name="charting.layout.splitSeries">0</option>
+        <option name="charting.layout.splitSeries.allowIndependentYRanges">0</option>
+        <option name="charting.legend.labelStyle.overflowMode">ellipsisMiddle</option>
+        <option name="charting.legend.placement">right</option>
+      </chart>
+    </panel>
+  </row>
+</form>

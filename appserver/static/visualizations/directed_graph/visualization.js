@@ -129,8 +129,8 @@ define(["api/SplunkVisualizationBase","api/SplunkVisualizationUtils"], function(
 	            // Clear the div
 	            this.$el.empty();
 	            
-	            var width = 700;
-	            var height = 400;
+	            var width = 1400;
+	            var height = 800;
 	            
 	            // Create the canvas
 				var svg = d3.select(this.el)
