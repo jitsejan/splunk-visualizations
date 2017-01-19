@@ -6,11 +6,12 @@
       <chart>
         <title>From 1500 oil and canvas became important, before mainly paper and panels</title>
         <search>
-          <query>index=jitsejan source="*data/wikiart_artwork.csv" media != "" 
+          <query>index=jitsejan source="*wikiart_artwork.csv" media != "" 
 | rex (?&lt;datecreated&gt;\d{4}) field=datecreated 
 | table artist datecreated diameter dimensions genre high_resolution image keywords link location locationcreated media name original_title period references series style wikipedia 
-| mvexpand media
 | chart count over datecreated by media usenull=f useother=f limit=0</query>
+          <earliest>$earliest$</earliest>
+          <latest>$latest$</latest>
           <sampleRatio>1</sampleRatio>
         </search>
         <option name="charting.axisLabelsX.majorLabelStyle.overflowMode">ellipsisNone</option>
@@ -46,7 +47,7 @@
       <chart>
         <title>1400: Mainly religious, from 1500 portrait became more important</title>
         <search>
-          <query>index=jitsejan source="*data/wikiart_artwork.csv" genre != ""  genre != "NaN" datecreated!="NaN"
+          <query>index=jitsejan source="*wikiart_artwork.csv" genre != ""  genre != "NaN" datecreated!="NaN"
 | rex (?&lt;datecreated&gt;\d{4}) field=datecreated 
 | table artist datecreated diameter dimensions genre high_resolution image keywords link location locationcreated media name original_title period references series style wikipedia 
 | mvexpand genre

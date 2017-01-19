@@ -1,0 +1,59 @@
+<dashboard>
+  <label>Leaflet</label>
+  <row>
+    <panel>
+      <viz type="leaflet_maps_app.leaflet_maps">
+        <search>
+          <query>index=jitsejan source="*wikiart_artist.csv" name != "" birthplace_latitude != "" 
+| dedup name 
+| eval description = "&lt;table&gt;
+&lt;tr&gt;&lt;th&gt;Artist&lt;/th&gt;&lt;td&gt;&lt;a href=\"?form.artist=".name."\"&gt;".name."&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th&gt;Birthplace&lt;/th&gt;&lt;td&gt;".birthplace."&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th&gt;Art movement&lt;/th&gt;&lt;td&gt;&lt;a href=\"?form.art_movement=".art_movement."\"&gt;".art_movement."&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th&gt;Wiki link&lt;/th&gt;&lt;td&gt;&lt;a href=\"".wikipedia."\"&gt;Wikipedia&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;" 
+| rename birthplace_latitude as latitude, birthplace_longitude as longitude 
+| table latitude, longitude, description</query>
+          <earliest>1482162472.000</earliest>
+          <sampleRatio>1</sampleRatio>
+        </search>
+        <option name="leaflet_maps_app.leaflet_maps.allPopups">1</option>
+        <option name="leaflet_maps_app.leaflet_maps.animate">1</option>
+        <option name="leaflet_maps_app.leaflet_maps.cluster">1</option>
+        <option name="leaflet_maps_app.leaflet_maps.criticalThreshold">80</option>
+        <option name="leaflet_maps_app.leaflet_maps.defaultHeight">600</option>
+        <option name="leaflet_maps_app.leaflet_maps.drilldown">1</option>
+        <option name="leaflet_maps_app.leaflet_maps.fullScreen">0</option>
+        <option name="leaflet_maps_app.leaflet_maps.layerControl">0</option>
+        <option name="leaflet_maps_app.leaflet_maps.layerControlCollapsed">0</option>
+        <option name="leaflet_maps_app.leaflet_maps.mapCenterLat">51.436596</option>
+        <option name="leaflet_maps_app.leaflet_maps.mapCenterLon">5.478001</option>
+        <option name="leaflet_maps_app.leaflet_maps.mapCenterZoom">6</option>
+        <option name="leaflet_maps_app.leaflet_maps.mapTile">http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png</option>
+        <option name="leaflet_maps_app.leaflet_maps.maxClusterRadius">80</option>
+        <option name="leaflet_maps_app.leaflet_maps.maxSpiderfySize">100</option>
+        <option name="leaflet_maps_app.leaflet_maps.maxZoom">19</option>
+        <option name="leaflet_maps_app.leaflet_maps.measureActiveColor">#00ff00</option>
+        <option name="leaflet_maps_app.leaflet_maps.measureCompletedColor">#0066ff</option>
+        <option name="leaflet_maps_app.leaflet_maps.measureIconPosition">topright</option>
+        <option name="leaflet_maps_app.leaflet_maps.measureLocalization">en</option>
+        <option name="leaflet_maps_app.leaflet_maps.measurePrimaryAreaUnit">acres</option>
+        <option name="leaflet_maps_app.leaflet_maps.measurePrimaryLengthUnit">feet</option>
+        <option name="leaflet_maps_app.leaflet_maps.measureSecondaryAreaUnit">sqmiles</option>
+        <option name="leaflet_maps_app.leaflet_maps.measureSecondaryLengthUnit">miles</option>
+        <option name="leaflet_maps_app.leaflet_maps.measureTool">0</option>
+        <option name="leaflet_maps_app.leaflet_maps.minZoom">1</option>
+        <option name="leaflet_maps_app.leaflet_maps.multiplePopups">0</option>
+        <option name="leaflet_maps_app.leaflet_maps.rangeOneBgColor">#B5E28C</option>
+        <option name="leaflet_maps_app.leaflet_maps.rangeOneFgColor">#6ECC39</option>
+        <option name="leaflet_maps_app.leaflet_maps.rangeThreeBgColor">#FD9C73</option>
+        <option name="leaflet_maps_app.leaflet_maps.rangeThreeFgColor">#F18017</option>
+        <option name="leaflet_maps_app.leaflet_maps.rangeTwoBgColor">#F1D357</option>
+        <option name="leaflet_maps_app.leaflet_maps.rangeTwoFgColor">#F0C20C</option>
+        <option name="leaflet_maps_app.leaflet_maps.scrollWheelZoom">1</option>
+        <option name="leaflet_maps_app.leaflet_maps.singleMarkerMode">0</option>
+        <option name="leaflet_maps_app.leaflet_maps.spiderfyDistanceMultiplier">1</option>
+        <option name="leaflet_maps_app.leaflet_maps.warningThreshold">55</option>
+      </viz>
+    </panel>
+  </row>
+</dashboard>

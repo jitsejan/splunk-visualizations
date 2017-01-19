@@ -72,5 +72,10 @@ modtime = 1484562566.044479300
 
 [views/vis_03]
 owner = admin
-version = 6.5.1
-modtime = 1484792096.904315000
+version = 6.5.0
+modtime = 1484814352.899412100
+
+[views/leaflet]
+owner = admin
+version = 6.5.0
+modtime = 1484833882.969616500
