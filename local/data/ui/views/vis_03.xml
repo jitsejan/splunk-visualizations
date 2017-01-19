@@ -6,8 +6,7 @@
       <chart>
         <title>From 1500 oil and canvas became important, before mainly paper and panels</title>
         <search>
-          <query>index=jitsejan source="*wikiart_artwork.csv" media != "" 
-| rex (?&lt;datecreated&gt;\d{4}) field=datecreated 
+          <query>index=jitsejan source="*wikiart_artwork_artist.csv" media != "" 
 | table artist datecreated diameter dimensions genre high_resolution image keywords link location locationcreated media name original_title period references series style wikipedia 
 | chart count over datecreated by media usenull=f useother=f limit=0</query>
           <earliest>$earliest$</earliest>
@@ -48,7 +47,6 @@
         <title>1400: Mainly religious, from 1500 portrait became more important</title>
         <search>
           <query>index=jitsejan source="*wikiart_artwork.csv" genre != ""  genre != "NaN" datecreated!="NaN"
-| rex (?&lt;datecreated&gt;\d{4}) field=datecreated 
 | table artist datecreated diameter dimensions genre high_resolution image keywords link location locationcreated media name original_title period references series style wikipedia 
 | mvexpand genre
 | chart count over datecreated by genre usenull=f useother=f limit=0</query>
@@ -88,11 +86,10 @@
       <title>Movement over time</title>
       <chart>
         <search>
-          <query>index=jitsejan source="*data/wikiart_artwork_artist.csv" 
+          <query>index=jitsejan source="*wikiart_artwork_artist.csv" 
 | search 
-    [ search index=jitsejan source="*data/wikiart_artwork_artist.csv" 
+    [ search index=jitsejan source="*wikiart_artwork_artist.csv" 
     | eval art_movement=split(art_movement, ",") | top 40 art_movement | return 40 art_movement] 
-| rex (?&lt;datecreated&gt;\d{4}) field=datecreated 
 | eval art_movement=split(art_movement, ",") 
 | chart count over datecreated by art_movement usenull=f useother=f limit=0 | makecontinuous datecreated | rename datecreated as "Creation year"</query>
           <sampleRatio>1</sampleRatio>
