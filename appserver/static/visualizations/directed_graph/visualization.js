@@ -129,16 +129,20 @@ define(["api/SplunkVisualizationBase","api/SplunkVisualizationUtils"], function(
 	            // Clear the div
 	            this.$el.empty();
 	            
-	            var width = 1400;
-	            var height = 800;
-	            
+	            var height = config[this.getPropertyNamespaceInfo().propertyNamespace + 'canvasheight'] || '800';
+	            var width = config[this.getPropertyNamespaceInfo().propertyNamespace + 'canvaswidth'] || '1400';
+
+	            var scale = 1;
+	            var zoomWidth = (width-scale*width)/2;
+	            var zoomHeight = (height-scale*height)/2;
+
 	            // Create the canvas
 				var svg = d3.select(this.el)
 							.append('svg')
 								.style('width', width + 'px')
 								.style('height', height + 'px')
 								.style('margin', '0 auto')
-	                            .call(d3.zoom().on('zoom', zoomed));
+	                            .call(d3.zoom().on("zoom", zoomed));;
 
 	            // Add a g and make it the active svg component
 				svg = svg.append('g');
@@ -157,7 +161,7 @@ define(["api/SplunkVisualizationBase","api/SplunkVisualizationUtils"], function(
 	            .enter().append("svg:marker")    // This section adds in the arrows
 	                .attr("id", String)
 	                .attr("viewBox", "0 -5 10 10")
-	                .attr("refX", 25)
+	                .attr("refX", 35)
 	                .attr("refY", 0)
 	                .attr("markerWidth", 6)
 	                .attr("markerHeight", 6)
